@@ -13,8 +13,15 @@ set time for sending the locations <br>
 1) Installation instructions <br><br>
    
   i) Import the file database.sql from sql folder to your database system <br>
-  ii) Copy the inveniet program and paste in one folder into /var/www/ <br>
-  iii) The inveniet program is ready for use <br><br> <br>
+  ii) View locations in map save to 9 locations <br>
+      For view multiple locations <br>
+      INSERT into phpmyadmin from administrator account <br>
+      Go to home and go to variables tab <br>
+      Insert end find group_concat_max_len <br>
+      Press edit and change value <br>
+      SET variables group_concat_max_len = 1000000; <br>
+  iii) Copy the inveniet program and paste in one folder into /var/www/ <br>
+  iiv) The inveniet program is ready for use <br><br> <br>
   
  
 2) To find the location of the devices <br><br>
