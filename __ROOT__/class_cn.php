@@ -28,10 +28,10 @@
 
     public function __construct()
         {
-          $this->connect[0]="localhost";
-          $this->connect[1]="inveniet";
-          $this->connect[2]="inveniet";
-          $this->connect[3]="inveniet";
+          $this->connect[0]="host";
+          $this->connect[1]="username";
+          $this->connect[2]="password";
+          $this->connect[3]="database";
            }
 
 
@@ -54,10 +54,10 @@
 
         public function __construct()
            {
-          $this->connect[0]="localhost";
-          $this->connect[1]="inveniet";
-          $this->connect[2]="inveniet";
-          $this->connect[3]="inveniet";
+          $this->connect[0]="host";
+          $this->connect[1]="username";
+          $this->connect[2]="password";
+          $this->connect[3]="database";
          } // end of class extends of connect with parent and child
 
 
