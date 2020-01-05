@@ -1,0 +1,7 @@
+      // View locations in map save to 9 locations
+         // For view multiple locations 
+        // INSERT into phpmyadmin from administrator account
+        // go to home and go to variables tab
+       // insert end find group_concat_max_len
+       // press edit and change value
+       //SET variables group_concat_max_len = 1000000;
