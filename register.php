@@ -201,14 +201,21 @@ else
    $password = md5(input($_POST['password']));
 
 
-   $sql = "insert into administrators (username,email,password,verify) values ('$username','$email','$password','yes')";
+   $sql = "insert into administrators (username,email,password,verify) 
+                  values ('$username','$email','$password','yes')";
 
 
-$sql2 = "insert into system_settings (admin,mode,time_of_renewal) values ('$username','on','10')";
-
+   $sql2 = "insert into system_settings (admin,mode,time_of_renewal) 
+            values ('$username','on','1')";
+            
+            
+   $sql3 = "insert into devices_blocked (admin,device_id) 
+            values ('$username','0.0.0.0')";           
+ 
 
    $result  = $conn->query($sql);
    $result2  = $conn->query($sql2);
+   $result3  = $conn->query($sql3);
 
  
      if ($result == true and $result2 == true) 

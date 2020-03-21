@@ -335,7 +335,9 @@ else
 
   $admin = $_SESSION['login'];
 
-  $sql_devices = "select * from devices_blocked where admin = '$admin' order by instant desc";   
+  $sql_devices = "select * from devices_blocked 
+                   where admin = '$admin' and device_id != '0.0.0.0' 
+                   order by instant desc";   
 
   $result = $conn->query($sql_devices);
 

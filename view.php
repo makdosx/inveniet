@@ -20,6 +20,62 @@
 *
 */
 
+error_reporting(0);
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
+require('__DEV__/function.php');
+require('__ROOT__/class_cn.php');
+
+
+ $obj = new security;
+ 
+  $host=$obj->connect[0];
+  $user=$obj->connect[1];
+  $pass=$obj->connect[2];
+  $db=$obj->connect[3];
+  
+  $conn = new mysqli($host,$user,$pass,$db);
+  
+  if($conn->connect_error)
+     {
+     die ("Cannot connect to server " .$conn->connect_error);
+       }
+
+
+else
+  {
+      
+      
+$device_bl =  $_SERVER["REMOTE_ADDR"];
+$device_ad = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+$device_adm = substr($device_ad, strpos($device_ad, "=") + 1);    
+
+$sql_block = "select device_id, admin from devices_blocked";
+$result_block = $conn->query($sql_block);
+              
+              
+while ($row_block = $result_block->fetch_assoc())
+          {
+              
+           $device_block = $row_block['device_id'];
+           $device_admin = $row_block['admin'];
+           
+          } // end of while
+          
+          
+          if ($device_block == $device_bl && $device_admin == $device_adm)
+              {
+                exit;  
+               }  
+               
+                  
+        else 
+          {
+
 ?>
 
 <html>
@@ -110,7 +166,7 @@ background-position: 50% 50%;
 <body>
     
      
-   <p>  <span id="location"></span></p> 
+  <!-- <p>  <span id="location"></span></p> -->
 
 
    <!-- <div class="blink_me" align="center"> SEARCH LOCATION </div> -->
@@ -120,31 +176,7 @@ background-position: 50% 50%;
 
 <?php
 
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
-
-require('__DEV__/function.php');
-require('__ROOT__/class_cn.php');
-
-
- $obj = new security;
- 
-  $host=$obj->connect[0];
-  $user=$obj->connect[1];
-  $pass=$obj->connect[2];
-  $db=$obj->connect[3];
-  
   $conn = new mysqli($host,$user,$pass,$db);
-  
-  if($conn->connect_error)
-     {
-     die ("Cannot connect to server " .$conn->connect_error);
-       }
-
-
-else
-  {
 
 
 $device_id =  $_SERVER["REMOTE_ADDR"];
@@ -181,8 +213,9 @@ $address = "Here";
 
 $all_info = "{ lat: " . $latitude . ", " . "lng: " . $longitude . ", " . "info: " . "''" . "Device Fingerprint: " . $device_id  . " <br> " . "Address: " . $address . "''" . " }"; 
 
+               
 
-
+    
 $sql_mode = "select mode, time_of_renewal from system_settings where mode = 'on' and admin = '$admin'";
 $result_mode = $conn->query($sql_mode);
 
@@ -210,6 +243,13 @@ $result_mode = $conn->query($sql_mode);
        sleep($time_of_renewal);
 
            } // check for empty fields
+           
+           
+        } // end if for else block devices
+       
+               
+   // } // end while for chech block devices
+    
 
 } // end of else connect
 
