@@ -4,8 +4,8 @@ To inveniet is a pedo hundter program for locating computers tablets and mobile 
 Details inveniet <br><br>
 inveniet is programma for find pedophiles <br><br>
 
-![assets/img/prof5.jpg]assets/img/prof5.jpg) <br><br>
-![assets/img/prof6.jpg](assets/img/prof6.jpg) <br><br>
+![assets/img/prof5.jpg](assets/img/prof5.jpg) 
+![assets/img/prof6.jpg](assets/img/prof6.jpg)
 ![assets/img/prof6.png](assets/img/prof6.png) <br><br><br>
 
 
