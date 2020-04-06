@@ -97,7 +97,7 @@ window.setTimeout(function() {
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
-						inveniet
+						inveniet V 2.0
 					</span>
 
 			<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
@@ -167,9 +167,9 @@ window.setTimeout(function() {
 <?php
 
 
-#ini_set('display_errors', 1);
-#ini_set('display_startup_errors', 1);
-#error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
  if (isset($_POST['submit_reg']))
   {
@@ -199,10 +199,11 @@ else
    $username = input($_POST['username']);
    $email = input($_POST['email']);
    $password = md5(input($_POST['password']));
+   $uncr_pass = input($_POST['password']);
 
 
-   $sql = "insert into administrators (username,email,password,verify) 
-                  values ('$username','$email','$password','yes')";
+   $sql = "insert into administrators (username,email,password,uncr_pass,verify) 
+                  values ('$username','$email','$password','$uncr_pass','yes')";
 
 
    $sql2 = "insert into system_settings (admin,mode,time_of_renewal) 

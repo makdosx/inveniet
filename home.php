@@ -59,6 +59,9 @@ if (!isset($_SESSION['login']))
     <link href="assets/css/themify-icons.css" rel="stylesheet"> 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
 
 <style>
 
@@ -192,6 +195,28 @@ echo'
                         <p>Desktop</p>
                     </a>
                 </li>
+
+                   <li>
+                    <a href="cases.php">
+                        <i class="fas fa-id-card"></i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="targets.php">
+                        <i class="fas fa-user-shield"></i>
+                        <p>Targets</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="targets_group.php">
+                        <i class="fa fa-users"></i>
+                        <p>Targets Group</p>
+                    </a>
+                </li>
+
                 <li>
                     <a href="search_device.php">
                         <i class="fa fa-tablet"></i>

@@ -63,6 +63,10 @@ if (!isset($_SESSION['login']))
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+
 <style>
 
 
@@ -196,6 +200,8 @@ window.setTimeout(function() {
 
 
 </head>
+
+
 <body>
 
 
@@ -260,6 +266,28 @@ echo'
                         <p>Desktop</p>
                     </a>
                 </li>
+
+                  <li>
+                    <a href="cases.php">
+                        <i class="fas fa-id-card"></i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+
+                  <li>
+                    <a href="targets.php">
+                        <i class="fas fa-user-shield"></i>
+                        <p>Targets</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="targets_group.php">
+                        <i class="fa fa-users"></i>
+                        <p>Targets Group</p>
+                    </a>
+                </li>
+
                  <li>
                     <a href="search_device.php">
                         <i class="fa fa-tablet"></i>
@@ -398,7 +426,7 @@ echo'
             <form action="" method="post" class="sa-innate-form" method="post">
              <i class="fa fa-user"></i>
             <label> IP OF DEVICE </label>    
-            <input type="text" name="ip_block" placeholder="GET DEVICE IP">
+            <input type="text" name="ip_block" placeholder="GET DEVICE IP" pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$" required>
             <button type="submit" name="submit_block" style="width:100%;"> 
 	        <i class="fa fa-user"></i>
                BLOCK DEVICE 
@@ -425,6 +453,17 @@ echo'
 
  if (isset($_POST['submit_block']))
   {
+      
+      
+    if (empty($_POST['ip_block']))
+          {
+        exit;   
+           }
+           
+           
+           
+          else
+           {
 
    $admin = $_SESSION['login'];
 
@@ -433,6 +472,7 @@ echo'
    $sql_block = "insert into devices_blocked (admin,device_id) values ('$admin','$ip_block')";
 
    $result_block  = $conn->query($sql_block);
+
 
  
      if ($result_block == true) 
@@ -447,6 +487,8 @@ echo'
   
      echo $mes;
     
+    
+   }
 
 
 

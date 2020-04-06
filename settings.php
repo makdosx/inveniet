@@ -63,6 +63,11 @@ if (!isset($_SESSION['login']))
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+
 <style>
 
 #backup
@@ -200,6 +205,28 @@ echo'
                         <p>Desktop</p>
                     </a>
                 </li>
+
+                 <li>
+                    <a href="cases.php">
+                        <i class="fas fa-id-card"></i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="targets.php">
+                        <i class="fas fa-user-shield"></i>
+                        <p>Targets</p>
+                    </a>
+                </li>
+
+               <li>
+                    <a href="targets_group.php">
+                        <i class="fa fa-users"></i>
+                        <p>Targets Group</p>
+                    </a>
+                </li>
+
                  <li>
                     <a href="search_device.php">
                         <i class="fa fa-tablet"></i>
@@ -319,6 +346,9 @@ echo'
                         style="width:300px; color:white; background:#141A00; display:inline">
                              
                                <option value="1"> Live (send locations real time) </option> 
+                               <option value="2"> 2 Seconds </option>                              
+                               <option value="3"> 3 Seconds </option>
+                               <option value="5"> 5 Seconds </option>
                                <option value="10"> 10 Seconds </option>
                                <option value="30"> 30 Seconds </option>
                                <option value="60"> 1  Minute </option>

@@ -20,6 +20,10 @@
 *
 */
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 
@@ -57,7 +61,6 @@ if (!isset($_SESSION['login']))
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
@@ -119,6 +122,70 @@ padding: 0;
 }
 
 
+#inputlg
+{
+text-align: center; 
+border-style: solid;
+border-width: 1px;;
+border-radius: 25px;
+border-color: black;
+text-align: center; 
+background-color: #eeede9;
+color: black;
+}
+
+
+.form-control::-webkit-input-placeholder {
+color: black;
+text-align: center; 
+}
+
+
+#btn_c1
+{
+text-align: center; 
+border-style: solid;
+border-width: 1px;;
+border-radius: 25px;
+border-color: black;
+text-align: center; 
+background-color:red;
+color: white;
+}
+
+
+#btn_c2
+{
+text-align: center; 
+border-style: solid;
+border-width: 1px;;
+border-radius: 25px;
+border-color: black;
+text-align: center; 
+background-color: #eeede9;
+color: black;
+}
+
+
+#btn_c3
+{
+text-align: center; 
+border-style: solid;
+border-width: 1px;;
+border-radius: 25px;
+border-color: black;
+text-align: center; 
+background-color: #eeede9;
+color: black;
+}
+
+
+select
+{ 
+text-align-last:center;
+}
+
+
 </style>
 
 
@@ -146,9 +213,6 @@ window.setTimeout(function() {
 
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 require('__DEV__/function.php');
 require('__ROOT__/class_cn.php');
@@ -178,8 +242,8 @@ $admin = $_SESSION['login'];
 $sql_mode = "select mode from system_settings where admin = '$admin'";
 $result_mode = $conn->query($sql_mode); 
 
-$sql_devices = "select * from devices where admin = '$admin' order by instant desc"; 
-$result_devices = $conn->query($sql_devices); 
+$sql_targets = "select * from targets where admin = '$admin' order by instant desc"; 
+$result_targets = $conn->query($sql_targets); 
 
 
 
@@ -202,14 +266,15 @@ echo'
             </div>
 
             <ul class="nav">
+
                 <li>
                     <a href="home.php">
                         <i class="fa fa-desktop"></i>
                         <p>Desktop</p>
                     </a>
                 </li>
-
-                 <li>
+                
+                   <li class="active">
                     <a href="cases.php">
                         <i class="fas fa-id-card"></i>
                         <p>Cases</p>
@@ -218,7 +283,7 @@ echo'
 
                  <li>
                     <a href="targets.php">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fa fa-user-shield"></i>
                         <p>Targets</p>
                     </a>
                 </li>
@@ -236,24 +301,28 @@ echo'
                         <p>Search Device</p>
                     </a>
                 </li>
-                <li class="active">
+
+                <li>
                     <a href="devices_locations.php">
                         <i class="fa fa-microchip""></i>
                         <p>Devices Locations</p>
                     </a>
                 </li>
+
                <li>
                     <a href="all_locations.php">
                         <i class="fa fa-globe"></i>
                         <p>All Locations</p>
                     </a>
                 </li>
+
                 <li>
                     <a href="remote_control.php">
                         <i class="fa fa-plug"></i>
                         <p>Remote control</p>
                     </a>
-                </li>             
+                </li>   
+          
                 <li>
                     <a href="task_manager.php">
                         <i class="fa fa-tasks"></i>
@@ -336,62 +405,82 @@ echo'
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title" align="center"> Locations of devices </h4>
-                             <p class="category" align="center"> Here is all the information about the devices </p>
-                           </div>
-
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <th> Instant </th>
-                                    	<th> Device ID </th>
-                                    	<th> Last IP </th>
-                                    	<th> Fingerprint </th>
-                                    	<th> Location (lat, lon)</th>
-                                        <th> On The Map </th>
-                                        <th> Delete Devices </th>
-                                    </thead>
-                                  <tbody>';
-                                   
+                                <h4 class="title" align="center"> Insert new case </h4>
+                             <p class="category" align="center"> From here you can define new cases </p>
+                             
+                               <br>
    
-
-   while ($row_devices = $result_devices->fetch_array(MYSQLI_NUM))
-          { 
-         $delete_device_id = $row_devices[0];
-        // echo $delete_device_id .'<br>';
-         $instant  = $row_devices[4];
-         $device_id =  $row_devices[1];
-         $last_ip   = $row_devices[3];
-         $fingerprint = $row_devices[8]; 
-         $location  = $row_devices[5]  .' , ' .$row_devices[6];
-         $location_on_map = $row_devices[5]  .',' .$row_devices[6] .'-' .$row_devices[2] .'-' .$row_devices[7];
-
-  echo"<tr>
-       <td> $instant </td>
-       <td> $device_id </td>
-       <td> $last_ip </td>
-       <td> $fingerprint </td>
-       <td> $location </td>
-
-       <td> <form action='devices_locations_map.php' method='post' target='_blank'>
-             <button type='submit' name='map_location' class='btn btn-primary btn-md' value='$location_on_map'> View Device <i class='fa fa-eye'></i> </button>
-           </form>
-      </td> 
-
-      <td>
-         <form action='' method='post'>
-          <button type='submit' name='delete_device_id' class='btn btn-dangerous btn-md' value='$delete_device_id'> Delete Device <i class='fa fa-trash'></i> </button>
-        </form>
-     </td>
-      
-     </tr>
-    </tbody>"; 
-   
-
- } // end of while for devices
+          <form action="" method="post">
 
 
-  echo' </table>
+                <button class="btn btn-primary btn-block" id="btn_c1" disabled>  
+                  <i class="fa fa-folder"></i> 
+                  <i class="fa fa-folder-open"></i> 
+                  <i class="fa fa-folder-minus"></i> 
+                  <i class="fa fa-id-card-alt"></i> 
+                  <i class="fa fa-address-card"></i>
+                </button>
+
+                       <br>
+
+                <button class="btn btn-primary btn-block" id="btn_c2" disabled>  
+                  <i class="fa fa-user-secret"></i> 
+                  <i class="fa fa-user-tag"></i> 
+                  <i class="fas fa-user-injured"></i> 
+                  <i class="fa fa-user-tie"></i> 
+                  <i class="fa fa-user-graduate"></i> 
+                  <i class="fa fa-user-nurse"></i> 
+                  <i class="fa fa-walking"></i> 
+                  <i class="fa fa-running"></i> 
+                </button>
+          
+                   <br>
+
+                <button class="btn btn-primary btn-block" id="btn_c3" disabled>  
+                  <i class="fa fa-calendar-alt"></i> 
+                  <i class="fa fa-clock"></i> 
+                  <i class="fa fa-hourglass-half"></i> 
+                  <i class="fa fa-stopwatch"></i> 
+                </button>
+
+                       <br>
+
+                
+              <select name="target_type" class="form-control input-md" id="inputlg" required>
+                 <option value="" hidden> Select Type of Target </option>
+                 <option value="specific_target"> Specific Target </option>
+                 <option value="group_target"> Group Target </option> 
+              </select>
+
+                       <br>
+
+              <input type="text" name="target_nick_name" class="form-control input-md" id="inputlg" 
+                     placeholder="Nickname of Target / Group" pattern="[a-zA-Z0-9-_.]{1,}" required>
+
+                       <br>
+
+        <input type="text" name="target_real_name" class="form-control input-md" id="inputlg" 
+                     placeholder="Real name of Target / Group" pattern="{3,}" required>
+
+                       <br>
+
+      <input type="text" name="target_desc" class="form-control input-lg" id="inputlg" 
+                     placeholder="Description of Target / Group" pattern="{10,}" required>
+
+                       <br>
+
+                  <button type="submit" name="submit_target" class="btn btn-success btn-block"> 
+            Add Target <i class="fa fa-plus"></i> 
+                </button>
+                
+                <br>
+
+              </form>
+
+                  </div>
+
+ 
+  
 
        </div>
       </div>
@@ -399,73 +488,167 @@ echo'
 
 
 echo'
-    <div align="center">
-     <form action="" method="POST">
-       <button type="submit" name="delete_devices" class="btn btn-dangerous btn-md" value="all"> 
-          Delete all devices locations <i class="fa fa-trash"></i> 
-       </button>
-     </form>
-   </div>
+    
 
 
     </div>
 </div>';
 
- 
 
 
-  if (isset($_POST['delete_device_id']))
+  
+  if (isset($_POST['submit_target']))
       {
 
-      $delete_device_id = input($_POST['delete_device_id']); 
-      $sql_delete_device = "delete from devices where id = '$delete_device_id' and admin = '$admin'";
-      $result_delete_device = $conn->query($sql_delete_device);
 
-   if ($result_delete_device)
+
+      $target_type = input($_POST['target_type']);
+        
+      $admin = $_SESSION['login']; 
+      $target_nick_name = input($_POST['target_nick_name']); 
+      $target_real_name = input($_POST['target_real_name']); 
+      $target_desc = input($_POST['target_desc']); 
+      $link = "!" .$admin ."-" .$target_nick_name ."_";
+
+
+      $protocol = $_SERVER['SERVER_PORT'];
+
+      if ($protocol == '443')
+         {
+         $protocol = 'https://';
+         }
+
+      else if ($protocol == '80')
+           {
+           $protocol = 'http://';
+           }
+
+
+      
+
+function encrypt_url($string) {
+  $key = "MAL_979805"; //key to encrypt and decrypts.
+  $result = '';
+  $test = "";
+   for($i=0; $i<strlen($string); $i++) {
+     $char = substr($string, $i, 1);
+     $keychar = substr($key, ($i % strlen($key))-1, 1);
+     $char = chr(ord($char)+ord($keychar));
+
+     $test[$char]= ord($char)+ord($keychar);
+     $result.=$char;
+   }
+
+   return urlencode(base64_encode($result));
+}
+
+
+
+         $url = $_SERVER['SERVER_NAME'];
+
+
+         $link = encrypt_url($link);
+
+
+         $tar_link = $protocol .$url ."/view_tar.php?=$link"; 
+
+         $tar_link = str_replace(" ","",$tar_link); 
+
+
+
+         $tar_link2 = $protocol .$url ."/view_tar_gro.php?=$link"; 
+
+         $tar_link2 = str_replace(" ","",$tar_link2); 
+
+
+
+       
+      if ($target_type == "specific_target")
+          {
+      
+      $sql_add_target = "insert into targets (admin,target_id,target_real,target_desc,link,
+                                              last_ip,latitude,longitude,address,fingerprint,all_info) 
+                         values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','')";
+      $result_add_targets = $conn->query($sql_add_target);
+
+   if ($result_add_targets == true)
        {
-   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The device $delete_device_id location was deleted </div>";
+
+      $sql_add_target2 = "insert into backup_targets (admin,target_id,target_real,target_desc,link,
+                                                      last_ip,latitude,longitude,address,fingerprint,all_info) 
+                  values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','')";
+      $result_add_targets2 = $conn->query($sql_add_target2);
+
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> Target has been registered: Start the investigation </div>";
+     echo $mes;
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets.php\'">';
        }
+
 
   else 
      {
-    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+     //echo $conn->error;    
+      $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+      echo $mes;
+      echo '<meta http-equiv="refresh" content="2;URL=\'cases.php\'">';
      }
 
+
      
-     echo $mes;
-     
-     echo '<meta http-equiv="refresh" content="2;URL=\'devices_locations.php\'">';
-     
- 
-      } // end of isset submit delete device id
+     } // end of specific target
 
 
 
 
 
-  if (isset($_POST['delete_devices']))
-      {
 
-      $sql_delete_devices = "delete from devices";
-      $result_delete_devices = $conn->query($sql_delete_devices);
 
-   if ($result_delete_devices = true)
+     if ($target_type == "group_target")
+          {
+      
+        $length = 24;
+        $fingerprint = substr(str_shuffle(md5(time())), 0, $length);
+        $finger = "G-" .$fingerprint;
+
+
+      $sql_add_target = "insert into targets_group (admin,target_id,target_real,target_desc,link,
+                                              last_ip,latitude,longitude,address,fingerprint,all_info) 
+                         values('$admin','$target_nick_name','$target_real_name','$target_desc',
+                                 '$tar_link2','0.0.0.0','','','','$finger','')";
+      $result_add_targets = $conn->query($sql_add_target);
+
+   if ($result_add_targets == true)
        {
-   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The devices locations was deleted </div>";
+
+      $sql_add_target2 = "insert into backup_targets_group (admin,target_id,target_real,target_desc,link,
+                                                      last_ip,latitude,longitude,address,fingerprint,all_info) 
+                  values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link2','0.0.0.0','','','','','')";
+      $result_add_targets2 = $conn->query($sql_add_target2);
+
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> Target Group has been registered: Start the investigation </div>";
+     echo $mes;
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
        }
+
 
   else 
      {
-    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+     //echo $conn->error;    
+      $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+      echo $mes;
+      echo '<meta http-equiv="refresh" content="2;URL=\'cases.php\'">';
      }
 
- 
-     echo $mes;
+
      
-     echo '<meta http-equiv="refresh" content="2;URL=\'devices_locations.php\'">';
+     } // end of specific target
+
+ 
+
+
  
  
-      } // enf of isset submit delete all devices
+      } // end of isset submit targets
 
 
 
@@ -495,4 +678,5 @@ echo'
 </body>
 
 </html>
+
 

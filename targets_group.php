@@ -20,6 +20,10 @@
 *
 */
 
+ini_set('display_errors',0);
+
+
+
 session_start();
 
 
@@ -30,8 +34,6 @@ if (!isset($_SESSION['login']))
 
 
 ?>
-
-
 
 
 
@@ -60,10 +62,6 @@ if (!isset($_SESSION['login']))
     <link href="assets/css/themify-icons.css" rel="stylesheet">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
 
@@ -78,7 +76,7 @@ table
 {
 width: 100%;
 display: block; /* to enable vertical scrolling */
-max-height: 250px; /* e.g. */
+max-height: 500px; /* e.g. */
 overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
 }
 
@@ -93,25 +91,7 @@ background-color: #EEEDE9;
 
 
 th, td {
-  width: 25%; /* to enable "word-break: break-all" */
-}
-
-
-
-#th2 
-{
-  width: 48.5%; /* to enable "word-break: break-all" */
-}
-
-#td2
-{
-  width: 48.5%; /* to enable "word-break: break-all" */
-}
-
-
-#td3
-{
-  width: 48.5%; /* to enable "word-break: break-all" */
+  width: 20.33%; /* to enable "word-break: break-all" */
 }
 
 
@@ -129,20 +109,9 @@ padding: 0;
 }
 
 
-#text_admin
-{
-height: 50px;
-width: 400px;
-background-color: black;
-color: white;
-font-size: 30px;
-}
-
-
-
 #alertMsg {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   height: 3em;
   width: 100%;
@@ -150,6 +119,37 @@ font-size: 30px;
   color: white;
   font-size: 16px;
   z-index: 999;
+}
+
+
+#inputlg
+{
+text-align: center; 
+border-style: solid;
+border-width: 1px;;
+border-radius: 25px;
+border-color: black;
+text-align: center; 
+background-color: #eeede9;
+color: black;
+}
+
+
+.form-control::-webkit-input-placeholder {
+color: black;
+text-align: center; 
+}
+
+
+#a
+{
+color: blue;
+}
+
+
+#a:hover
+{
+color:red;
 }
 
 
@@ -165,9 +165,40 @@ window.setTimeout(function() {
     $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
         $(this).remove(); 
     });
-}, 1000);
+}, 2000);
  
 });
+</script>
+
+
+<script>
+
+function copy(that)
+{
+var inp =document.createElement('input');
+document.body.appendChild(inp)
+inp.value =that.textContent
+inp.select();
+document.execCommand('copy',false);
+alert("Copy link: " + inp.value);
+inp.remove();
+}
+
+</script>
+
+
+<script>
+
+function submitForm() {
+  return confirm('Are you sure that you want to delete all the targets? \nIn this case all the targets informations will be permanently lost.');
+}
+
+
+function submitForm2() {
+  return confirm('Are you sure that you want to delete this target? \nIn this case all the informations of targets will be permanently lost.');
+}
+
+
 </script>
 
 
@@ -177,17 +208,68 @@ window.setTimeout(function() {
 
 <body>
 
+
+
+<?php
+
+#ini_set('display_errors', 1);
+#ini_set('display_startup_errors', 1);
+#error_reporting(E_ALL);
+
+require('__DEV__/function.php');
+require('__ROOT__/class_cn.php');
+
+
+ $obj = new security;
+ 
+  $host=$obj->connect[0];
+  $user=$obj->connect[1];
+  $pass=$obj->connect[2];
+  $db=$obj->connect[3];
+  
+  $conn = new mysqli($host,$user,$pass,$db);
+  
+  if($conn->connect_error)
+     {
+     die ("Cannot connect to server " .$conn->connect_error);
+       }
+
+
+else
+  {
+
+$admin = $_SESSION['login'];
+
+
+$sql_mode = "select mode from system_settings where admin = '$admin'";
+$result_mode = $conn->query($sql_mode); 
+
+$sql_targets = "select * from targets_group where admin = '$admin' 
+                group by target_id order by instant desc"; 
+$result_targets = $conn->query($sql_targets); 
+
+
+
+   while ($row_mode = $result_mode->fetch_array(MYSQLI_NUM))
+          {
+          $mode_type = $row_mode[0];
+           }
+
+
+
+echo'
    <div class="wrapper">
 	<div class="sidebar" data-background-color="black" data-active-color="danger">
 
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="home.php" class="simple-text">
-                   Inveniet
+                   INVENIET
                 </a>
             </div>
 
             <ul class="nav">
+
                 <li>
                     <a href="home.php">
                         <i class="fa fa-desktop"></i>
@@ -195,21 +277,21 @@ window.setTimeout(function() {
                     </a>
                 </li>
 
-                 <li>
+                   <li>
                     <a href="cases.php">
                         <i class="fas fa-id-card"></i>
                         <p>Cases</p>
                     </a>
-                </li>
+                </li>  
 
-                  <li>
+                 <li>
                     <a href="targets.php">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fa fa-user-shield"></i>
                         <p>Targets</p>
                     </a>
                 </li>
 
-                <li>
+              <li class="active">
                     <a href="targets_group.php">
                         <i class="fa fa-users"></i>
                         <p>Targets Group</p>
@@ -222,26 +304,30 @@ window.setTimeout(function() {
                         <p>Search Device</p>
                     </a>
                 </li>
+
                 <li>
                     <a href="devices_locations.php">
                         <i class="fa fa-microchip""></i>
                         <p>Devices Locations</p>
                     </a>
                 </li>
+
                <li>
                     <a href="all_locations.php">
                         <i class="fa fa-globe"></i>
                         <p>All Locations</p>
                     </a>
                 </li>
+
                 <li>
                     <a href="remote_control.php">
                         <i class="fa fa-plug"></i>
                         <p>Remote control</p>
                     </a>
-                </li>             
-                <li class="active">
-                     <a href="task_manager.php">
+                </li>   
+          
+                <li>
+                    <a href="task_manager.php">
                         <i class="fa fa-tasks"></i>
                         <p> Task Manager </p>
                     </a>
@@ -267,18 +353,18 @@ window.setTimeout(function() {
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> Task manager </a>
+                    <a class="navbar-brand" href="#"> Devices Locations </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
-				<p> Mode on </p>
+				<p> Mode '.$mode_type.' </p>
                             </a>
                         </li>
 
-                       <li class="dropdown">
+                        <li class="dropdown">
 
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                   <i class="fa fa-connectdevelop"></i>
@@ -321,137 +407,153 @@ window.setTimeout(function() {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header" align="center">
-                                <h4 class="title" align="center"> Devices blocked </h4>
-                                <p class="category" align="center"> Here is all the information about the blocked devices </p>
-                                 <i class="fa fa-desktop"></i>
-                                 <i class="fa fa-tablet"></i> 
-                                 <i class="fa fa-mobile"></i> 
+                            <div class="header">
+                                <h4 class="title" align="center"> Locations of targets group </h4>
+                             <p class="category" align="center"> Here is all the information about the targets group </p>
+
                            </div>
-                             
+
+ 
+   
+
                             <div class="content table-responsive table-full-width">
-      
-                        
-<?php
-
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-require('__DEV__/function.php');
-require('__ROOT__/class_cn.php');
-
- $obj = new security;
- 
-  $host=$obj->connect[0];
-  $user=$obj->connect[1];
-  $pass=$obj->connect[2];
-  $db=$obj->connect[3];
-  
-  $conn = new mysqli($host,$user,$pass,$db);
-  
-  if($conn->connect_error)
-     {
-     die ("Cannot connect to server " .$conn->connect_error);
-       }
-
-
-else
-  {
-
-  $admin = $_SESSION['login'];
-
-  $sql_devices = "select * from devices_blocked 
-                   where admin = '$admin' and device_id != '0.0.0.0' 
-                   order by instant desc";   
-
-  $result = $conn->query($sql_devices);
-
-   while ($row = $result->fetch_assoc())
-    {
-
-    echo "  <table class=table table-striped'>
-             <thead>
-              <th> <i class='fa fa-signal'></i> </th>
-              <th> Condition </th>
-              <th> Instant </th>
-              <th> Device ID </th>
-              <th> <i class='fa fa-signal'></i> </th>
-            </thead>
- 
-         <tbody>
+                                <table class="table table-striped">
+                                    <thead>
+                                    	<th> Target Group ID </th>
+                                        <th> Real Name </th>
+                                        <th> Description </th>
+                                        <th> Link </th>
+                                        <th> Instant </th>
+                                        <th> All Targets </th>
+                                        <th> Delete Targets </th>
+                                    </thead>
+                                  <tbody>';
                                    
    
-    <tr>
-    <td> <i class='fa fa-ban'></i> </td>
-    <td> Blocked </td>
-    <td> {$row['instant']} </td>
-    <td> {$row['device_id']} </td>
-    <td> <form action='' method='post'>
-    <button type='submit' name='unblock' class='btn btn-primary btn-md' value='{$row['id']}'> Unblock Device <i class='fa fa-minus-circle'></i> </button>
-  </form>
-  </td>
-  </tr>
- </tbody>
+
+   while ($row_targets = $result_targets->fetch_assoc())
+          { 
+         $delete_target_id = $row_targets['target_id'];
+         $instant  = $row_targets['instant'];
+         $target_id =  $row_targets['target_id']; 
+         $target_real =  $row_targets['target_real']; 
+         $target_desc =  $row_targets['target_desc']; 
+         $link = $row_targets['link']; 
+
+  echo"<tr> 
+        <td> $target_id </td>
+        <td> $target_real </td>
+        <td> $target_desc </td>
+        <td> <a href='' id='a' onclick='copy(this)'> $link </a> </td>
+        <td> $instant </td>
+
+       <td> <form action='targets_group_all.php' method='post'>
+             <button type='submit' name='targets_all' class='btn btn-primary btn-md' value='$target_id'> View Targets <i class='fa fa-eye'></i> </button>
+           </form>
+      </td> 
+
+      <td>
+         <form action='' method='post' onsubmit='return submitForm2(this);'>
+          <button type='submit' name='delete_target_id' class='btn btn-dangerous btn-md' value='$delete_target_id'> Delete Group <i class='fa fa-trash'></i> </button>
+        </form>
+     </td>
+      
+     </tr>
+    </tbody>"; 
+   
+
+ } // end of while for devices
 
 
- </table>
-";
+  echo' </table>
 
-    }
+       </div>
+      </div>
+     </div> ';
 
 
+echo'
+    <div align="center">
+     <form action="" method="POST" onsubmit="return submitForm(this);">
+       <button type="submit" name="delete_targets" class="btn btn-dangerous btn-lg" value="all"> 
+          Delete all targets group <i class="fa fa-trash"></i> 
+       </button>
+     </form>
+   </div>
 
-  
- if (isset($_POST['unblock']))
-  {
-  
-   $unblock = input($_POST['unblock']);
 
-   $sql_unblock = "delete from devices_blocked where id = '$unblock'";
-
-   $result_unblock  = $conn->query($sql_unblock);
+    </div>
+</div>';
 
  
-     if ($result_unblock == true) 
-       {
-       $mes = "<div align='center' id='alertMsg' class='alert alert-success'> Device $unblock was unblocked </div>";
-       }
-     else 
+
+
+  if (isset($_POST['delete_target_id']))
       {
-      $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+
+      $delete_target_id = input($_POST['delete_target_id']); 
+
+      $sql_delete_target = "delete from targets_group 
+                            where target_id = '$delete_target_id' 
+                            and admin = '$admin'";
+      $result_delete_target = $conn->query($sql_delete_target);
+
+
+   if ($result_delete_target)
+       {
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The target $delete_target_id location was deleted </div>";
+       }
+
+  else 
+     {
+    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
      }
-  
+
+     
      echo $mes;
+     
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
+     
+ 
+      } // end of isset submit delete device id
 
-     echo '<meta http-equiv="refresh" content="2;URL=\'task_manager.php\'">';
-
-    
-    } // end if isset submit unblock device
 
 
- } // end of else connect
 
-$conn->close();
+
+  if (isset($_POST['delete_targets']))
+      {
+
+      $sql_delete_targets = "delete from targets_group";
+      $result_delete_targets = $conn->query($sql_delete_targets);
+
+   if ($result_delete_targets = true)
+       {
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The targets group was deleted </div>";
+       }
+
+  else 
+     {
+    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+     }
+
+ 
+     echo $mes;
+     
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets.php\'">';
+ 
+ 
+      } // enf of isset submit delete all devices
+
+
+
+
+} // end of else connect
 
 ?>
 
-                            </div>
- 
 
-                        </div>
-                    </div>
-   
-
-  
-
-    </div>
-</div>
-
-
-
+    
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -467,7 +569,8 @@ $conn->close();
 
 	<script src="assets/js/demo.js"></script>
 
+
 </body>
 
-
 </html>
+
