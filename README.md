@@ -51,7 +51,13 @@ set time for sending the locations <br>
    To identify computers and laptops you need one connection to the Internet. The location here may vary a few meters because you do not use gps as on tablets and cell phones <br><br>
   
 ![screenshots/0](screenshots/0.png) <br><br>
-![screenshots/1](screenshots/1.png) <br><br>
+![screenshots/1-1](screenshots/1-1.png) <br><br>
+![screenshots/2-2](screenshots/2-2.png) <br><br>
+![screenshots/3-3](screenshots/3-3.png) <br><br>
+![screenshots/4-4](screenshots/4-4.png) <br><br>
+![screenshots/5-5](screenshots/5-5.png) <br><br>
+![screenshots/6-6](screenshots/6-6.png) <br><br>
+![screenshots/7-7](screenshots/7-7.png) <br><br>
 ![screenshots/2](screenshots/2.png) <br><br>
 ![screenshots/3](screenshots/3.png) <br><br>
 ![screenshots/4](screenshots/4.png) <br><br>
