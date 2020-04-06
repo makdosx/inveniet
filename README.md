@@ -37,6 +37,11 @@ set time for sending the locations <br>
       The link is your url and your set target group name <br><br>
       After find tha target or target groups view results <br>
       The results is ip,instant, longitude and latitude and other informations <br>
+      The informations of this links are encrypted <br>
+      Example url target:  https://192.168.2.30/view_tar.php?=Vrqit4ytnKysj6rApr6%2B <br>
+      Example url target group: https://192.168.2.30/view_tar_gro.php?=Vrqit4yepZppYpQ%3D <br>
+      
+     
 
       
    iii)  Find tablet and mobile phone location <br>
