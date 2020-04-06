@@ -215,7 +215,8 @@ else
  
   
  $sql_profil = "select * from targets where admin = '$admin' 
-                         and target_id ='" . TARGET_PROFILE_ID . "' "; 
+                         and target_id ='" . TARGET_PROFILE_ID . "' 
+                         and last_ip != '0.0.0.0' "; 
  $result_profil = $conn->query($sql_profil); 
 
 

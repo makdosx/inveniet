@@ -440,7 +440,7 @@ echo'
 
    while ($row_targets = $result_targets->fetch_assoc())
           { 
-         $delete_target_id = $row_targets['id'];
+         $delete_target_id = $row_targets['target_id'];
          $target_id =  $row_targets['target_id']; 
          $target_real =  $row_targets['target_real']; 
          $target_desc =  $row_targets['target_desc']; 
@@ -552,7 +552,7 @@ echo'
  
      echo $mes;
      
-     echo '<meta http-equiv="refresh" content="2;URL=\'targets.php\'">';
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
  
  
       } // enf of isset submit delete all devices
