@@ -57,7 +57,7 @@ set time for sending the locations <br>
 ![screenshots/4-4](screenshots/4-4.png) <br><br>
 ![screenshots/5-5](screenshots/5-5.png) <br><br>
 ![screenshots/6-6](screenshots/6-6.png) <br><br>
-![screenshots/7-7](screenshots/7-7.png) <br><br>
+![screenshots/8-8](screenshots/8-8.png) <br><br>
 ![screenshots/2](screenshots/2.png) <br><br>
 ![screenshots/3](screenshots/3.png) <br><br>
 ![screenshots/4](screenshots/4.png) <br><br>
