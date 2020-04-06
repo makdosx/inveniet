@@ -31,10 +31,18 @@ set time for sending the locations <br>
       
       example url: https://localhost/view.php?=makdosx <br><br>      
       
-   ii)  Find tablet and mobile phone location <br>
+  ii) Create case for track a target <br>
+      The link is your url and your set target name <br><br>
+      Create case for track a target group <br>
+      The link is your url and your set target group name <br><br>
+      After find tha target or target groups view results <br>
+      The results is ip,instant, longitude and latitude and other informations <br>
+
+      
+   iii)  Find tablet and mobile phone location <br>
     To run the program on tablets and mobile phones, the user should have an Internet connection such as wifi or cellular data and have opened its location or the gps to your find its exact location <br><br>
    
-   iii) Finding a Computer Location <br>
+   iv) Finding a Computer Location <br>
    To identify computers and laptops you need one connection to the Internet. The location here may vary a few meters because you do not use gps as on tablets and cell phones <br><br>
   
 ![screenshots/0](screenshots/0.png) <br><br>
