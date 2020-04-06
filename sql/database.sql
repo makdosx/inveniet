@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 05, 2020 at 02:00 PM
+-- Generation Time: Apr 07, 2020 at 12:36 AM
 -- Server version: 5.5.62-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.29
 
@@ -31,11 +31,12 @@ CREATE TABLE IF NOT EXISTS `administrators` (
   `username` varchar(16) NOT NULL,
   `email` varchar(80) NOT NULL,
   `password` varchar(32) NOT NULL,
+  `uncr_pass` varchar(32) NOT NULL,
   `verify` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +56,55 @@ CREATE TABLE IF NOT EXISTS `backup_devices` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=253 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backup_targets`
+--
+
+CREATE TABLE IF NOT EXISTS `backup_targets` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `admin` varchar(16) NOT NULL,
+  `target_id` varchar(32) NOT NULL,
+  `target_real` varchar(64) NOT NULL,
+  `target_desc` varchar(512) NOT NULL,
+  `link` varchar(64) NOT NULL,
+  `last_ip` varchar(64) NOT NULL,
+  `instant` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` varchar(128) NOT NULL,
+  `longitude` varchar(128) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `fingerprint` varchar(32) NOT NULL,
+  `all_info` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `target_id` (`target_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backup_targets_group`
+--
+
+CREATE TABLE IF NOT EXISTS `backup_targets_group` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `admin` varchar(16) NOT NULL,
+  `target_id` varchar(32) NOT NULL,
+  `target_real` varchar(64) NOT NULL,
+  `target_desc` varchar(512) NOT NULL,
+  `link` varchar(64) NOT NULL,
+  `last_ip` varchar(64) NOT NULL,
+  `instant` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` varchar(128) NOT NULL,
+  `longitude` varchar(128) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `fingerprint` varchar(32) NOT NULL,
+  `all_info` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fingerprint` (`fingerprint`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 -- --------------------------------------------------------
 
@@ -75,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=253 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -89,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `devices_blocked` (
   `device_id` varchar(64) NOT NULL,
   `instant` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -103,9 +152,56 @@ CREATE TABLE IF NOT EXISTS `system_settings` (
   `mode` varchar(4) NOT NULL,
   `time_of_renewal` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `mode` (`mode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `targets`
+--
+
+CREATE TABLE IF NOT EXISTS `targets` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `admin` varchar(16) NOT NULL,
+  `target_id` varchar(32) NOT NULL,
+  `target_real` varchar(64) NOT NULL,
+  `target_desc` varchar(512) NOT NULL,
+  `link` varchar(64) NOT NULL,
+  `last_ip` varchar(64) NOT NULL,
+  `instant` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` varchar(128) NOT NULL,
+  `longitude` varchar(128) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `fingerprint` varchar(32) NOT NULL,
+  `all_info` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `target_id` (`target_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `targets_group`
+--
+
+CREATE TABLE IF NOT EXISTS `targets_group` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `admin` varchar(16) NOT NULL,
+  `target_id` varchar(32) NOT NULL,
+  `target_real` varchar(64) NOT NULL,
+  `target_desc` varchar(512) NOT NULL,
+  `link` varchar(256) NOT NULL,
+  `last_ip` varchar(64) NOT NULL,
+  `instant` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` varchar(128) NOT NULL,
+  `longitude` varchar(128) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `fingerprint` varchar(32) NOT NULL,
+  `all_info` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fingerprint` (`fingerprint`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
