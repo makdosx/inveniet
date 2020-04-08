@@ -7,7 +7,7 @@ inveniet is programm for find pedophiles <br><br>
 <table>
  <tr>
   <td> <img width="300" height="200" src="assets/img/prof5.jpg"> </td>
-  <td> <img width="300" height="200" src="assets/img/prof6.jpg"> </td>
+  <td> <img width="300" height="200" src="assets/img/prof7.jpg"> </td>
   <td> <img width="300" height="200" src="assets/img/prof6.png"> </td>
  </tr>
 </table>  
