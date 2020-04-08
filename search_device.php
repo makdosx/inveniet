@@ -91,11 +91,13 @@ function loadstation(){
 
 <style>
 
-.form-control::-webkit-input-placeholder { color: black; }  /* WebKit, Blink, Edge */
-.form-control:-moz-placeholder { color: black; }  /* Mozilla Firefox 4 to 18 */
-.form-control::-moz-placeholder { color: black; }  /* Mozilla Firefox 19+ */
-.form-control:-ms-input-placeholder { color: black; }  /* Internet Explorer 10-11 */
-.form-control::-ms-input-placeholder { color: black; }  /* Microsoft Edge */
+
+.form-control::-webkit-input-placeholder { color: grey; }  
+.form-control:-moz-placeholder { color: grey; }  
+.form-control::-moz-placeholder { color: grey; }  
+.form-control:-ms-input-placeholder { color: grey; }  
+.form-control::-ms-input-placeholder { color: grey; } 
+
 
 .form-control:focus {
   border-color: black !important;
@@ -221,12 +223,21 @@ echo'
                         <p> Task Manager </p>
                     </a>
                 </li>
+
                   <li>
                     <a href="settings.php">
                          <i class="fa fa-cogs"></i>
                         <p>Settings</p>
                     </a>
                 </li>
+
+                <li>
+                   <a href="instructions.php">
+                         <i class="fa fa-linode"></i>
+                        <p> instructions </p>
+                    </a>
+                </li> 
+
             </ul>
     	</div>
     </div>
@@ -260,14 +271,18 @@ echo'
 				  <b class="caret"></b>
                               </a>
 
-                     <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">
                       <li><a href="home.php"> Desktop <i class="fa fa-desktop"></i> </a></li>
+                      <li><a href="cases.php"> Cases <i class="fa fa-id-card"></i> </a></li>
+               <li><a href="targets.php"> Targets <i class="fa fa-user-shield"></i> </a></li>
+               <li><a href="targets_group.php"> Targets Group <i class="fa fa-users"></i> </a></li>
                       <li><a href="search_device.php"> Search Device <i class="fa fa-tablet"></i> </a></li>
-                    <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
+          <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
                       <li><a href="all_locations.php"> All Locations <i class="fa fa-globe"></i> </a></li>
                       <li><a href="remote_control.php"> Remote Control <i class="fa fa-plug"></i> </a></li>
                       <li><a href="task_manager.php"> Task Manager <i class="fa fa-tasks"></i> </a></li>
                       <li><a href="settings.php"> Settings <i class="fa fa-cogs"></i> </a></li>
+                      <li><a href="instructions.php"> Instructions <i class="fa fa-linode"></i> </a></li>
                      </ul>
 
                         </li>
@@ -308,9 +323,20 @@ echo'
              <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
 
             <div class="input-group col-xs-8" style="background-color:black;">
+
              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-             <input id="search" type="text" class="form-control" name="search" 
-                    style="height: 60px; font-size: 70px;" autofocus>
+             <select id="search" type="text" class="form-control" name="search_id" 
+                    style="height: 60px; font-size: 30px;"> 
+                 <option value="" hidden> Select Search </option>
+                 <option value="devices"> Devices </option>
+                 <option value="targets"> Targets </option>
+                 <option value="targets_group"> Targets Group </option>
+             </select>
+
+             <span class="input-group-addon"><i class="fa fa-microchip"></i></span>
+             <input id="search" type="text" class="form-control" name="search_ip" 
+                    style="height: 60px; font-size: 40px;" placeholder="Target IP">
+
             <button hidden type="submit" name="submit_search"></button>
             </form>
            </div>
@@ -337,31 +363,48 @@ echo'
 
       if (isset($_POST['submit_search']))
           {
-          $search = input($_POST['search']);
+ 
+          $search_id = input($_POST['search_id']);
 
-      $sql_search = "SELECT GROUP_CONCAT(CONCAT(all_info))
-                   AS 'combined_all_info'
-                   FROM devices where device_id = '$search' and admin = '$admin'";
+          $search_ip = input($_POST['search_ip']);
 
-  // $sql_search2 = "SELECT latitude,longitude FROM devices 
-  //                 where device_id = '$search' and admin = '$admin'";
 
-   $result_search = $conn->query($sql_search);
-   //$result_search2 = $conn->query($sql_search2);
+         if ($search_id == 'devices') 
+               { 
+            $sql_search = "SELECT GROUP_CONCAT(CONCAT(all_info))
+                           AS 'combined_all_info'
+                           FROM devices where device_id = '$search_ip' and admin = '$admin'";
+                 }
+
+
+
+         if ($search_id == 'targets') 
+              { 
+            $sql_search = "SELECT GROUP_CONCAT(CONCAT(all_info))
+                           AS 'combined_all_info'
+                           FROM targets where last_ip = '$search_ip' and admin = '$admin'";
+                 }
+
+
+            if ($search_id == 'targets_group') 
+              { 
+            $sql_search = "SELECT GROUP_CONCAT(CONCAT(all_info))
+                           AS 'combined_all_info'
+                           FROM targets_group where last_ip = '$search_ip' and admin = '$admin'";
+                 }
+
+
+
+
+       $result_search = $conn->query($sql_search);
 
 
     while ($row_search = $result_search->fetch_array(MYSQLI_NUM))
            {
            $all_info = $row_search[0];
-                }
+               }
 
-    
-   // while ($row_search2 = $result_search2->fetch_array(MYSQLI_NUM))
-       //    {
-        //   $lat = $row_search2[0];
-        //   $lng = $row_search2[1];
-         //   }
-    
+
 
 echo"
 <script>
@@ -371,10 +414,10 @@ function initMap() {
 
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeId: 'hybrid',
-    zoom: 3,
+    zoom: 2,
     center: {
-      lat: 10.000,
-      lng: 10.000,
+      lat: 40.000,
+      lng: 30.000,
     }
   });
   var infoWin = new google.maps.InfoWindow();
@@ -410,7 +453,11 @@ google.maps.event.addDomListener(window, 'load', initMap);
     </script>";
 
 
+
  } // end if isset post submit
+
+
+
 
  } // end of else connect
 

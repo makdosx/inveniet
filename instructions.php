@@ -303,7 +303,7 @@ echo'
                         <p>Devices Locations</p>
                     </a>
                 </li>
-               <li class="active">
+               <li>
                     <a href="all_locations.php">
                         <i class="fa fa-globe"></i>
                         <p>All Locations</p>
@@ -329,7 +329,7 @@ echo'
                     </a>
                 </li>
 
-                <li>
+               <li class="active">
                    <a href="instructions.php">
                          <i class="fa fa-linode"></i>
                         <p> instructions </p>
@@ -352,7 +352,7 @@ echo'
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> All Locations </a>
+                    <a class="navbar-brand" href="#"> Instructions </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -416,18 +416,18 @@ echo'
             <div class="col-md-4">
                 <div class="card-content">
                     <div class="card-img">
-                        <img src="assets/img/head1.png" style="height: 250px;">
-                        <span><h4> Devices </h4></span>
+                        <img src="assets/img/prof5.jpg" style="height: 250px;">
+                        <span><h4> Secret Codes </h4></span>
                     </div>
                     <div class="card-desc">
-                        <h3> Devices </h3>
+                        <h3> Secret Codes #1 </h3>
                         <p>
-                          All Devices locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Devices.
+                         Help, guide and understanding <br> 
+                         for effective research explanation. <br>
+                         The secret codes of pedophilia.
                         </p>
-                            <a href="all_locations_devices.php" class="btn-card"> 
-                              View Live &nbsp; <i class="fas fa-eye fa-1x"></i> 
+                            <a href="assets/img/secret1.png" target="blank" class="btn-card"> 
+                              View Codes &nbsp; <i class="fas fa-eye fa-1x"></i> 
                             </a>   
                     </div>
                 </div>
@@ -436,19 +436,19 @@ echo'
 
             <div class="col-md-4">
                 <div class="card-content">
-                    <div class="card-img">
-                        <img src="assets/img/head2.png" style="height: 250px;">
-                        <span><h4> Targets </h4></span>
+                    <div class="card-img" style="background-color: white;">
+                        <img src="assets/img/prof7.jpg" style="height: 250px; background-color: white;">
+                        <span><h4> Secret Codes </h4></span>
                     </div>
                     <div class="card-desc">
-                        <h3> Targets </h3>
+                        <h3> Secret Codes #2 </h3>
                         <p>
-                          All Targets locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Targets.
+                          Help, guide and understanding <br> 
+                          for effective research explanation. <br>
+                          The secret codes of pedophilia.
                          </p>
-                           <a href="all_locations_targets.php" class="btn-card"> 
-                              View Live &nbsp; <i class="fas fa-eye fa-1x"></i> 
+                           <a href="assets/img/secret2.png" target="blank" class="btn-card"> 
+                              View Codes &nbsp; <i class="fas fa-eye fa-1x"></i> 
                            </a>      
                     </div>
                 </div>
@@ -458,18 +458,18 @@ echo'
             <div class="col-md-4">
                 <div class="card-content">
                     <div class="card-img">
-                        <img src="assets/img/head3.jpg" style="height: 250px;">
-                        <span><h4> Targets Group </h4></span>
+                        <img src="assets/img/prof6.png" style="height: 250px;">
+                        <span><h4> Secret Symbols </h4></span>
                     </div>
                     <div class="card-desc">
-                        <h3> Targets Group </h3>
+                        <h3> Secret Symbols </h3>
                         <p> 
-                          All Targets Group locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Target Group.
+                          Help, guide and understanding <br> 
+                          for effective research explanation. <br>
+                          The secret symbols of pedophilia.
                        </p>
-                           <a href="all_locations_targets_group.php" class="btn-card"> 
-                              View live &nbsp; <i class="fas fa-eye fa-1x"></i> 
+                           <a href="assets/img/secret3.jpg" target="_blank" class="btn-card"> 
+                              View Codes &nbsp; <i class="fas fa-eye fa-1x"></i> 
                            </a>     
                     </div>
                 </div>

@@ -75,117 +75,7 @@ body,
   padding: 0px
 }
 
-
-
-
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto+Condensed:400,400i,700,700i');
-section{
-    padding: 50px 0;
-}
-.details-card {
-	background: #ecf0f1;
-}
-
-.card-content {
-	background: #ffffff;
-	border: 4px;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-}
-
-.card-img {
-	position: relative;
-	overflow: hidden;
-	border-radius: 0;
-	z-index: 1;
-}
-
-.card-img img {
-	width: 100%;
-	height: auto;
-	display: block;
-}
-
-.card-img span {
-    position: absolute;
-    top: 15%;
-    left: 12%;
-    background: #1ABC9C;
-    padding: 6px;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    transform: translate(-50%,-50%);
-}
-.card-img span h4{
-        font-size: 12px;
-        margin:0;
-        padding:10px 5px;
-        line-height: 0;
-}
-.card-desc {
-	padding: 4.25rem;
-}
-
-.card-desc h3 {
-	color: #000000;
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 1.3em;
-    margin-top: 0;
-    margin-bottom: 5px;
-    padding: 0;
-}
-
-.card-desc p {
-	color: #747373;
-    font-size: 14px;
-	font-weight: 400;
-	font-size: 1em;
-	line-height: 1.5;
-	margin: 0px;
-	margin-bottom: 20px;
-	padding: 0;
-	font-family: 'Raleway', sans-serif;
-}
-
-.btn-card{
-        
-	background-color: #1ABC9C;
-	color: #fff;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-    padding: 1.70rem 2.70rem;
-    font-size: 1.0rem;
-    -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    -o-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    margin: 0;
-    border: 0;
-    -webkit-border-radius: .125rem;
-    border-radius: .125rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    white-space: normal;
-    word-wrap: break-word;
-    color: #fff;
-}
-.btn-card:hover {
-    background: orange;
-}
-a.btn-card {
-    text-decoration: none;
-    color: #fff;
-}
-/* End card section */
-
-
-
-</style>
+    </style>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -239,8 +129,16 @@ else
 $admin = $_SESSION['login'];
 
 
+
+$sql_locations = "SELECT GROUP_CONCAT(CONCAT(all_info))
+                   AS 'combined_all_info'
+                   FROM devices where admin = '$admin'"; 
+
+
 $sql_mode = "select mode from system_settings where admin = '$admin'";
 
+
+    $result_locations = $conn->query($sql_locations); 
 
     $result_mode = $conn->query($sql_mode); 
 
@@ -321,21 +219,12 @@ echo'
                         <p> Task Manager </p>
                     </a>
                 </li>
-
                   <li>
                     <a href="settings.php">
                          <i class="fa fa-cogs"></i>
                         <p>Settings</p>
                     </a>
                 </li>
-
-                <li>
-                   <a href="instructions.php">
-                         <i class="fa fa-linode"></i>
-                        <p> instructions </p>
-                    </a>
-                </li> 
-
             </ul>
     	</div>
     </div>
@@ -371,18 +260,14 @@ echo'
 				  <b class="caret"></b>
                               </a>
 
-                    <ul class="dropdown-menu">
+                     <ul class="dropdown-menu">
                       <li><a href="home.php"> Desktop <i class="fa fa-desktop"></i> </a></li>
-                      <li><a href="cases.php"> Cases <i class="fa fa-id-card"></i> </a></li>
-               <li><a href="targets.php"> Targets <i class="fa fa-user-shield"></i> </a></li>
-               <li><a href="targets_group.php"> Targets Group <i class="fa fa-users"></i> </a></li>
                       <li><a href="search_device.php"> Search Device <i class="fa fa-tablet"></i> </a></li>
-          <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
+                   <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
                       <li><a href="all_locations.php"> All Locations <i class="fa fa-globe"></i> </a></li>
                       <li><a href="remote_control.php"> Remote Control <i class="fa fa-plug"></i> </a></li>
                       <li><a href="task_manager.php"> Task Manager <i class="fa fa-tasks"></i> </a></li>
                       <li><a href="settings.php"> Settings <i class="fa fa-cogs"></i> </a></li>
-                      <li><a href="instructions.php"> Instructions <i class="fa fa-linode"></i> </a></li>
                      </ul>
 
                         </li>
@@ -403,81 +288,75 @@ echo'
 
                 </div>
             </div>
-        </nav>';
+        </nav>
 
-   echo'<br><br>';
-
-
-echo'
-<section class="details-card">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="card-content">
-                    <div class="card-img">
-                        <img src="assets/img/head1.png" style="height: 250px;">
-                        <span><h4> Devices </h4></span>
-                    </div>
-                    <div class="card-desc">
-                        <h3> Devices </h3>
-                        <p>
-                          All Devices locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Devices.
-                        </p>
-                            <a href="all_locations_devices.php" class="btn-card"> 
-                              View Live &nbsp; <i class="fas fa-eye fa-1x"></i> 
-                            </a>   
-                    </div>
-                </div>
-            </div>
+<div id="map"></div>';
 
 
-            <div class="col-md-4">
-                <div class="card-content">
-                    <div class="card-img">
-                        <img src="assets/img/head2.png" style="height: 250px;">
-                        <span><h4> Targets </h4></span>
-                    </div>
-                    <div class="card-desc">
-                        <h3> Targets </h3>
-                        <p>
-                          All Targets locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Targets.
-                         </p>
-                           <a href="all_locations_targets.php" class="btn-card"> 
-                              View Live &nbsp; <i class="fas fa-eye fa-1x"></i> 
-                           </a>      
-                    </div>
-                </div>
-            </div>
+    while ($row_locations = $result_locations->fetch_array(MYSQLI_NUM))
+           {
+
+         $all_info = $row_locations[0];
 
 
-            <div class="col-md-4">
-                <div class="card-content">
-                    <div class="card-img">
-                        <img src="assets/img/head3.jpg" style="height: 250px;">
-                        <span><h4> Targets Group </h4></span>
-                    </div>
-                    <div class="card-desc">
-                        <h3> Targets Group </h3>
-                        <p> 
-                          All Targets Group locations. <br>
-                          Grouped or in units on the map. <br>
-                          All informations about the Target Group.
-                       </p>
-                           <a href="all_locations_targets_group.php" class="btn-card"> 
-                              View live &nbsp; <i class="fas fa-eye fa-1x"></i> 
-                           </a>     
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>';
+         // View locations in map save to 9 locations
+         // For view multiple locations 
+        // INSERT into phpmyadmin from administrator account
+        // go to home and go to variables tab
+       // insert end find group_concat_max_len
+       // press edit and change value
+       //SET variables group_concat_max_len = 1000000;
 
+
+
+echo"
+<script>
+     
+function initMap() {
+
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeId: 'hybrid',
+    zoom: 3,
+    center: {
+      lat: 10.000,
+      lng: 10.000,
+    }
+  });
+  var infoWin = new google.maps.InfoWindow();
+  // Add some markers to the map.
+  // Note: The code uses the JavaScript Array.prototype.map() method to
+  // create an array of markers based on a given 'locations' array.
+  // The map() method here has nothing to do with the Google Maps API.
+  var markers = locations.map(function(location, i) {
+    var marker = new google.maps.Marker({
+      position: location
+    });
+    google.maps.event.addListener(marker, 'click', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+    return marker;
+  });
+
+  // markerCluster.setMarkers(markers);
+  // Add a marker clusterer to manage the markers.
+  var markerCluster = new MarkerClusterer(map, markers, {
+    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+  });
+
+}
+
+var locations = [{$all_info},];
+
+
+
+google.maps.event.addDomListener(window, 'load', initMap);
+
+    </script>";
+
+
+   } // end of while devices locations
 
 
  } // end of else connect
@@ -485,6 +364,12 @@ echo'
 
 ?>
 
+
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+
+   <!-- hack the api key for cluster -->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap"></script>
 
 
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>

@@ -189,6 +189,7 @@ echo'
             </div>
 
             <ul class="nav">
+
                 <li class="active">
                     <a href="home.php">
                         <i class="fa fa-desktop"></i>
@@ -247,12 +248,21 @@ echo'
                         <p> Task Manager </p>
                     </a>
                 </li>
+
                   <li>
                     <a href="settings.php">
                          <i class="fa fa-cogs"></i>
                         <p>Settings</p>
                     </a>
                 </li>
+
+               <li>
+                   <a href="instructions.php">
+                         <i class="fa fa-linode"></i>
+                        <p> instructions </p>
+                    </a>
+                </li> 
+
             </ul>
     	</div>
     </div>
@@ -289,12 +299,16 @@ echo'
 
                      <ul class="dropdown-menu">
                       <li><a href="home.php"> Desktop <i class="fa fa-desktop"></i> </a></li>
+                      <li><a href="cases.php"> Cases <i class="fa fa-id-card"></i> </a></li>
+               <li><a href="targets.php"> Targets <i class="fa fa-user-shield"></i> </a></li>
+               <li><a href="targets_group.php"> Targets Group <i class="fa fa-users"></i> </a></li>
                       <li><a href="search_device.php"> Search Device <i class="fa fa-tablet"></i> </a></li>
-                    <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
+          <li><a href="devices_locations.php"> Devices Locations <i class="fa fa-microchip"></i> </a></li>
                       <li><a href="all_locations.php"> All Locations <i class="fa fa-globe"></i> </a></li>
                       <li><a href="remote_control.php"> Remote Control <i class="fa fa-plug"></i> </a></li>
                       <li><a href="task_manager.php"> Task Manager <i class="fa fa-tasks"></i> </a></li>
                       <li><a href="settings.php"> Settings <i class="fa fa-cogs"></i> </a></li>
+                      <li><a href="instructions.php"> Instructions <i class="fa fa-linode"></i> </a></li>
                      </ul>
 
                         </li>
