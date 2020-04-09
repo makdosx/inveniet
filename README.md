@@ -1,5 +1,5 @@
 # inveniet v2.0
-To inveniet is a pedo hundter program for locating computers tablets and mobile phones of pefophiles criminals
+To inveniet is a pedo hunter program for locating computers tablets and mobile phones of pefophiles criminals
 
 Details inveniet <br><br>
 inveniet is programm for find pedophiles <br><br>
