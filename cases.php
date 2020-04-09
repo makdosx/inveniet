@@ -20,9 +20,11 @@
 *
 */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors',0);
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 session_start();
 
@@ -542,7 +544,7 @@ echo'
 function encrypt_url($string) {
   $key = "MAL_979805"; //key to encrypt and decrypts.
   $result = '';
-  $test = "";
+  $test = array();
    for($i=0; $i<strlen($string); $i++) {
      $char = substr($string, $i, 1);
      $keychar = substr($key, ($i % strlen($key))-1, 1);
@@ -603,7 +605,8 @@ function encrypt_url($string) {
      //echo $conn->error;    
       $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
       echo $mes;
-      echo '<meta http-equiv="refresh" content="2;URL=\'cases.php\'">';
+      echo '<meta http-equiv="refresh" content="2;URL=\'cases.php\'">'; 
+     // echo $conn->error;
      }
 
 
@@ -691,5 +694,6 @@ function encrypt_url($string) {
 </body>
 
 </html>
+
 
 

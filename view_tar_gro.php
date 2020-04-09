@@ -310,7 +310,7 @@ $result_info = $conn->query($sql_info);
            $target_desc = $row_info['target_desc'];
            $target_link = $row_info['link'];
 
-            echo $target_real ."<br>" .$target_desc ."<br>" .$target_link;
+           // echo $target_real ."<br>" .$target_desc ."<br>" .$target_link;
 
            }
 
@@ -370,3 +370,4 @@ $result_info = $conn->query($sql_info);
 $conn->close();
 
 ?>
+

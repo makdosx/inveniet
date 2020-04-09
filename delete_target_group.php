@@ -224,18 +224,10 @@ require('__ROOT__/class_cn.php');
 
 else
   {
-
-$admin = $_SESSION['login'];
-
- if (isset($_POST['targets_all']))
-       {
-
-       $targets_all = input($_POST['targets_all']); 
-
-       $admin = $_SESSION['login'];
-
-
-      $sql_mode = "select mode from system_settings where admin = '$admin'";
+      
+  $admin = $_SESSION['login'];
+      
+ $sql_mode = "select mode from system_settings where admin = '$admin'";
       $result_mode = $conn->query($sql_mode); 
 
      $sql_targets = "select * from targets_group 
@@ -412,122 +404,78 @@ echo'
 
                 </div>
             </div>
-        </nav>
+        </nav>';
+        
 
+  if (isset($_POST['delete_target_id']))
+      {
 
-
-    <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title" align="center"> 
-                                  <i class="fa fa-users"></i> &nbsp; 
-                                    Targets Group: 
-                                    <font color="red"> '.$targets_all.' </font> 
-                                   </h4>
-                             <p class="category" align="center"> 
-                                 Here is all the information about 
-                                   <font color="red"> '.$targets_all.' </font> 
-                                   targets group 
-                             </p>
-
-                           </div>
-
- 
-   
-
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
-                                    <thead>
-                                    	<th> Target Group ID </th>
-                                        <th> Real Name </th>
-                                        <th> Description </th>
-                                        <th> Link </th>
-                                        <th> Target Details </th>
-                                        <th> Delete Targets </th>
-                                    </thead>
-                                  <tbody>';
-                                   
-   
-
-   while ($row_targets = $result_targets->fetch_assoc())
-          { 
-         $delete_target_id = $row_targets['target_id'];
-         $target_id =  $row_targets['target_id']; 
-         $target_real =  $row_targets['target_real']; 
-         $target_desc =  $row_targets['target_desc']; 
-         $link = $row_targets['link']; 
-         $last_ip   = $row_targets['last_ip'];
-         //$fingerprint = $row_targets[8]; 
-         $location  = $row_targets['latitude']  .' , ' .$row_targets['longitude'];
-         $location_on_map = $row_targets['latitude']  .',' .$row_targets['longitude'] .'-' .$row_targets['target_id'] .'-' .$row_targets['address'] .'-' .$row_targets['last_ip'];
-
-
-  echo"<tr> 
-        <td> $target_id </td>
-        <td> $target_real </td>
-        <td> $target_desc </td>
-        <td> <a id='a'> $link </a> </td>
-
-
-       <td> 
-        <form action='targets_group_profiles.php' method='post' target='_blank'>
-        <input type='text' name='target_group_profile_ip' value='$last_ip' hidden>
-    <button type='submit' name='target_group_profile_id' class='btn btn-primary btn-md' value='$target_id'>        
-      Target Details <i class='fa fa-info'></i>
-        </button>
-     </form>
-    </td> 
-
-
-      <td>
-         <form action='delete_target_group.php' method='post' onsubmit='return submitForm(this);'>
-          <input type='text' name='delete_target_ip' value='$last_ip' hidden> 
-          <button type='submit' name='delete_target_id' class='btn btn-dangerous btn-md' value='$delete_target_id'> Delete Target <i class='fa fa-trash'></i> </button>
-        </form>
-     </td>
+      $delete_target_id = input($_POST['delete_target_id']); 
+      $delete_target_ip = input($_POST['delete_target_ip']);
+    
+    //  echo $admin ."<br>" .$delete_target_id ."<br>"  .$delete_target_ip; exit;
       
-     </tr>
-    </tbody>"; 
-   
+      $sql_delete_target = "delete from targets_group 
+                            where target_id = '$delete_target_id' 
+                            and admin = '$admin'
+                            and last_ip = '$delete_target_ip'";
+      $result_delete_target = $conn->query($sql_delete_target);
+      
 
- } // end of while for devices
+   if ($result_delete_target)
+       {
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The target $delete_target_id location was deleted </div>";
+       }
 
-
-  echo' </table>
-
-       </div>
-      </div>
-     </div> ';
-
-
-echo'
-    <div align="center">
-     <form action="delete_target_group.php" method="POST" onsubmit="return submitForm(this);">
-       <button type="submit" name="delete_targets" class="btn btn-dangerous btn-lg" value="all"> 
-          Delete all targets group <i class="fa fa-trash"></i> 
-       </button>
-     </form>
-   </div>
+  else 
+     {
+    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+     }
 
 
-    </div>
-</div>';
+     echo $mes;
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
 
  
+      } // end of isset submit delete device id
 
-  } // enf of isset targets all
 
 
-} // end of else connect
 
+
+  if (isset($_POST['delete_targets']))
+      {
+
+      $sql_delete_targets = "delete from targets_group where last_ip != '0.0.0.0' ";
+      $result_delete_targets = $conn->query($sql_delete_targets);
+
+   if ($result_delete_targets = true)
+       {
+   $mes = "<div align='center' id='alertMsg' class='alert alert-success'> The targets locations was deleted </div>";
+       }
+
+  else 
+     {
+    $mes = "<div align='center' id='alertMsg' class='alert alert-danger'> Error! Please try again </ div>";
+     }
+
+ 
+     echo $mes;
+     
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
+ 
+ 
+      } // enf of isset submit delete all devices
+      
+      
+  } //end else of connect       
+      
+  $conn->close();      
+      
 ?>
 
 
-    
-    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+ <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<script src="assets/js/bootstrap-checkbox-radio.js"></script>
@@ -546,5 +494,4 @@ echo'
 </body>
 
 </html>
-
 

@@ -228,6 +228,9 @@ else
          $target_real =  $row_profil['target_real']; 
          $target_desc =  $row_profil['target_desc']; 
          $link = $row_profil['link']; 
+         $link= wordwrap($link, 30, "\n", true);
+         $link = htmlentities($link);
+         $link = nl2br($link);
          $last_ip   = $row_profil['last_ip'];
          $location  = $row_profil['latitude']  .' , ' .$row_profil['longitude'];
          $location2  = $row_profil['latitude']  .','.$row_profil['longitude'];
@@ -413,3 +416,4 @@ echo"
 
 </body>
 </html>
+

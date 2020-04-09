@@ -461,6 +461,7 @@ echo'
         <td> $instant </td>
 
        <td> <form action='targets_group_all.php' method='post'>
+            
              <button type='submit' name='targets_all' class='btn btn-primary btn-md' value='$target_id'> View Targets <i class='fa fa-eye'></i> </button>
            </form>
       </td> 
@@ -553,7 +554,7 @@ echo'
  
      echo $mes;
      
-     echo '<meta http-equiv="refresh" content="2;URL=\'targets.php\'">';
+     echo '<meta http-equiv="refresh" content="2;URL=\'targets_group.php\'">';
  
  
       } // enf of isset submit delete all devices
@@ -586,4 +587,5 @@ echo'
 </body>
 
 </html>
+
 

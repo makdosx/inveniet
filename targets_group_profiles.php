@@ -23,6 +23,11 @@
 ini_set('display_errors',0);
 
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
+
 
 session_start();
 
@@ -175,11 +180,6 @@ background: #141A00;
 <?php
 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
 // if(isset($_POST['target_profile_id']))
    //  {
 
@@ -210,10 +210,9 @@ else
  define("TARGET_PROFILE_ID",input($_POST['target_group_profile_id']));   
  define("TARGET_PROFILE_IP",input($_POST['target_group_profile_ip']));                      
 
-
  $sql_profil = "select * from targets_group where admin = '$admin' 
                          and target_id ='" . TARGET_PROFILE_ID . "' 
-                         and last_ip != '" . TARGET_PROFILE_IP . "'
+                         and last_ip  = '" . TARGET_PROFILE_IP . "'
                          and last_ip != '0.0.0.0' "; 
  $result_profil = $conn->query($sql_profil); 
 
@@ -226,11 +225,13 @@ else
          $target_real =  $row_profil['target_real']; 
          $target_desc =  $row_profil['target_desc']; 
          $link = $row_profil['link']; 
+         $link= wordwrap($link, 30, "\n", true);
+         $link = htmlentities($link);
+         $link = nl2br($link);
          $last_ip   = $row_profil['last_ip'];
          $location  = $row_profil['latitude']  .' , ' .$row_profil['longitude'];
          $location2  = $row_profil['latitude']  .','.$row_profil['longitude'];
          $location_on_map = $row_profil['latitude']  .',' .$row_profil['longitude'] .'-' .$row_profil['target_id'] .'-' .$row_profil['address'] .'-' .$row_profil['last_ip'];
-
 
 
 echo"
@@ -411,3 +412,4 @@ echo"
 
 </body>
 </html>
+
