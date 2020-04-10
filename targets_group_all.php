@@ -441,6 +441,7 @@ echo'
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-striped">
                                     <thead>
+                                        <th> Imprint </th>
                                     	<th> Target Group ID </th>
                                         <th> Real Name </th>
                                         <th> Description </th>
@@ -463,9 +464,11 @@ echo'
          //$fingerprint = $row_targets[8]; 
          $location  = $row_targets['latitude']  .' , ' .$row_targets['longitude'];
          $location_on_map = $row_targets['latitude']  .',' .$row_targets['longitude'] .'-' .$row_targets['target_id'] .'-' .$row_targets['address'] .'-' .$row_targets['last_ip'];
+         $imprint = $row_targets['imprint'];
 
 
   echo"<tr> 
+        <td> $imprint </td> 
         <td> $target_id </td>
         <td> $target_real </td>
         <td> $target_desc </td>

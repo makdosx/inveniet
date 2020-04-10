@@ -272,7 +272,6 @@ $fingerprint = substr(str_shuffle(md5(time())), 0, $length);
 $admin = $_POST['admin'];
 $target_id = $_POST['target'];
 
-echo $admin ."<br>" .$target_id;
 
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
@@ -282,7 +281,7 @@ $address = "Here";
 
 $all_info = "{ lat: " . $latitude . ", " . "lng: " . $longitude . ", " . "info: " . "''" . "Device Fingerprint: " . $device_id  . " <br> " . "Address: " . $address . "''" . " }"; 
 
-               
+$imprint = '<font color=green> <b> ON </b> </font>';
 
     
 $sql_mode = "select mode, time_of_renewal from system_settings where mode = 'on' and admin = '$admin'";
@@ -303,7 +302,7 @@ $result_mode = $conn->query($sql_mode);
  $sql_norm_dev = "update targets set last_ip = '$last_ip', instant = NOW(), 
                                      latitude = '$latitude', longitude = '$longitude', 
                                      address = '$address', fingerprint = '$fingerprint', 
-                                     all_info = '$all_info'
+                                     all_info = '$all_info', imprint = '$imprint'
                   where admin = '$admin' and target_id = '$target_id'";
 
   
@@ -311,7 +310,7 @@ $result_mode = $conn->query($sql_mode);
  $sql_back_dev = "update backup_targets set last_ip = '$last_ip', instant = NOW(), 
                                      latitude = '$latitude', longitude = '$longitude', 
                                      address = '$address', fingerprint = '$fingerprint', 
-                                     all_info = '$all_info'
+                                     all_info = '$all_info' , imprint = 'ON'
                   where admin = '$admin' and target_id = '$target_id'";
 
 

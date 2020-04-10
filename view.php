@@ -213,7 +213,7 @@ $address = "Here";
 
 $all_info = "{ lat: " . $latitude . ", " . "lng: " . $longitude . ", " . "info: " . "''" . "Device Fingerprint: " . $device_id  . " <br> " . "Address: " . $address . "''" . " }"; 
 
-               
+$imprint = '<font color=green> <b> ON </b> </font>';
 
     
 $sql_mode = "select mode, time_of_renewal from system_settings where mode = 'on' and admin = '$admin'";
@@ -221,6 +221,7 @@ $result_mode = $conn->query($sql_mode);
 
    while ($row_mode = $result_mode->fetch_array(MYSQLI_NUM))
           {
+
        $mode = $row_mode[0];
        $time_of_renewal = $row_mode[1];
        //$time_of_renewal = floatval($time_of_renewal)
@@ -231,11 +232,11 @@ $result_mode = $conn->query($sql_mode);
        if (!empty($admin . $latitude . $longitude))
              {
 
-       $sql_norm_dev = "insert into devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info')";
+       $sql_norm_dev = "insert into devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info,imprint) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info','$imprint')";
 
 
+       $sql_back_dev = "insert into backup_devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info,imprint) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info','ON')";
 
-       $sql_back_dev = "insert into backup_devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info')";
 
        $result_norm_dev = $conn->query($sql_norm_dev);
        $result_back_dev = $conn->query($sql_back_dev);

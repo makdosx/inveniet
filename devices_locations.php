@@ -356,6 +356,7 @@ echo'
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-striped">
                                     <thead>
+                                        <th> Imprint </th>
                                         <th> Instant </th>
                                     	<th> Device ID </th>
                                     	<th> Last IP </th>
@@ -378,8 +379,11 @@ echo'
          $fingerprint = $row_devices[8]; 
          $location  = $row_devices[5]  .' , ' .$row_devices[6];
          $location_on_map = $row_devices[5]  .',' .$row_devices[6] .'-' .$row_devices[2] .'-' .$row_devices[7];
+         $imprint = $row_devices[10]; 
+
 
   echo"<tr>
+       <td> $imprint </td> 
        <td> $instant </td>
        <td> $device_id </td>
        <td> $last_ip </td>
@@ -414,7 +418,7 @@ echo'
 echo'
     <div align="center">
      <form action="" method="POST">
-       <button type="submit" name="delete_devices" class="btn btn-dangerous btn-md" value="all"> 
+       <button type="submit" name="delete_devices" class="btn btn-dangerous btn-lg" value="all"> 
           Delete all devices locations <i class="fa fa-trash"></i> 
        </button>
      </form>

