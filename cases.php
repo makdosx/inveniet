@@ -515,8 +515,6 @@ echo'
   if (isset($_POST['submit_target']))
       {
 
-
-
       $target_type = input($_POST['target_type']);
         
       $admin = $_SESSION['login']; 
@@ -525,6 +523,7 @@ echo'
       $target_desc = input($_POST['target_desc']); 
       $link = "!" .$admin ."-" .$target_nick_name ."_";
 
+      $imprint = '<font color=red> <b> OFF </b> </font>';
 
       $protocol = $_SERVER['SERVER_PORT'];
 
@@ -582,16 +581,16 @@ function encrypt_url($string) {
           {
       
       $sql_add_target = "insert into targets (admin,target_id,target_real,target_desc,link,
-                                              last_ip,latitude,longitude,address,fingerprint,all_info) 
-                         values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','')";
+                                last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
+                              values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','','$imprint')";
       $result_add_targets = $conn->query($sql_add_target);
 
    if ($result_add_targets == true)
        {
 
       $sql_add_target2 = "insert into backup_targets (admin,target_id,target_real,target_desc,link,
-                                                      last_ip,latitude,longitude,address,fingerprint,all_info) 
-                  values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','')";
+                                 last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
+                               values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','','OFF')";
       $result_add_targets2 = $conn->query($sql_add_target2);
 
    $mes = "<div align='center' id='alertMsg' class='alert alert-success'> Target has been registered: Start the investigation </div>";
@@ -628,17 +627,17 @@ function encrypt_url($string) {
 
 
       $sql_add_target = "insert into targets_group (admin,target_id,target_real,target_desc,link,
-                                              last_ip,latitude,longitude,address,fingerprint,all_info) 
+                                last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
                          values('$admin','$target_nick_name','$target_real_name','$target_desc',
-                                 '$tar_link2','0.0.0.0','','','','$finger','')";
+                                 '$tar_link2','0.0.0.0','','','','$finger','','')";
       $result_add_targets = $conn->query($sql_add_target);
 
    if ($result_add_targets == true)
        {
 
       $sql_add_target2 = "insert into backup_targets_group (admin,target_id,target_real,target_desc,link,
-                                                      last_ip,latitude,longitude,address,fingerprint,all_info) 
-                  values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link2','0.0.0.0','','','','','')";
+                                                      last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
+                  values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link2','0.0.0.0','','','','','','')";
       $result_add_targets2 = $conn->query($sql_add_target2);
 
    $mes = "<div align='center' id='alertMsg' class='alert alert-success'> Target Group has been registered: Start the investigation </div>";
