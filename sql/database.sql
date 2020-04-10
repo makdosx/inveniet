@@ -180,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `targets` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   `imprint` varchar(128) NOT NULL,
-  `imprint_status` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `target_id` (`target_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
