@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2020 at 12:36 AM
+-- Generation Time: Apr 11, 2020 at 01:29 AM
 -- Server version: 5.5.62-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.29
 
@@ -55,8 +55,9 @@ CREATE TABLE IF NOT EXISTS `backup_devices` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -78,9 +79,10 @@ CREATE TABLE IF NOT EXISTS `backup_targets` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `target_id` (`target_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -102,9 +104,10 @@ CREATE TABLE IF NOT EXISTS `backup_targets_group` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fingerprint` (`fingerprint`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 -- --------------------------------------------------------
 
@@ -123,8 +126,9 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -175,9 +179,11 @@ CREATE TABLE IF NOT EXISTS `targets` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(128) NOT NULL,
+  `imprint_status` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `target_id` (`target_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 -- --------------------------------------------------------
 
@@ -199,9 +205,10 @@ CREATE TABLE IF NOT EXISTS `targets_group` (
   `address` varchar(128) NOT NULL,
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
+  `imprint` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fingerprint` (`fingerprint`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
