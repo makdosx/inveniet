@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2020 at 01:29 AM
+-- Generation Time: Apr 11, 2020 at 11:17 PM
 -- Server version: 5.5.62-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.29
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `backup_devices` (
   `all_info` varchar(256) NOT NULL,
   `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `backup_targets` (
   `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `target_id` (`target_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `backup_targets_group` (
   `imprint` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fingerprint` (`fingerprint`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -127,8 +127,9 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   `imprint` varchar(128) NOT NULL,
+  `imprint_status` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -180,9 +181,10 @@ CREATE TABLE IF NOT EXISTS `targets` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   `imprint` varchar(128) NOT NULL,
+  `imprint_status` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `target_id` (`target_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 -- --------------------------------------------------------
 
@@ -205,9 +207,10 @@ CREATE TABLE IF NOT EXISTS `targets_group` (
   `fingerprint` varchar(32) NOT NULL,
   `all_info` varchar(256) NOT NULL,
   `imprint` varchar(128) NOT NULL,
+  `imprint_status` varchar(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fingerprint` (`fingerprint`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
