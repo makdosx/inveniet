@@ -581,8 +581,10 @@ function encrypt_url($string) {
           {
       
       $sql_add_target = "insert into targets (admin,target_id,target_real,target_desc,link,
-                                last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
-                              values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link','0.0.0.0','','','','','','$imprint')";
+                                last_ip,latitude,longitude,address,fingerprint,
+                                all_info,imprint,imprint_status) 
+                              values('$admin','$target_nick_name','$target_real_name','$target_desc','$tar_link',
+ '0.0.0.0','','','','','','$imprint','OFF')";
       $result_add_targets = $conn->query($sql_add_target);
 
    if ($result_add_targets == true)
@@ -627,9 +629,10 @@ function encrypt_url($string) {
 
 
       $sql_add_target = "insert into targets_group (admin,target_id,target_real,target_desc,link,
-                                last_ip,latitude,longitude,address,fingerprint,all_info,imprint) 
+                                last_ip,latitude,longitude,address,fingerprint,
+                                all_info,imprint,imprint_status) 
                          values('$admin','$target_nick_name','$target_real_name','$target_desc',
-                                 '$tar_link2','0.0.0.0','','','','$finger','','')";
+                                 '$tar_link2','0.0.0.0','','','','$finger','','','')";
       $result_add_targets = $conn->query($sql_add_target);
 
    if ($result_add_targets == true)

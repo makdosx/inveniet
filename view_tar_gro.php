@@ -323,10 +323,11 @@ $result_info = $conn->query($sql_info);
 
         $sql_norm_dev = "insert into targets_group (admin, target_id, target_real, target_desc, 
                                                     link, last_ip, instant, latitude, longitude,  
-                                                    address, fingerprint, all_info, imprint) 
+                                                    address, fingerprint, 
+                                                    all_info, imprint, imprint_status) 
                          values ('$admin', '$target_id', '$target_real', '$target_desc',
                                  '$target_link', '$last_ip', NOW(), '$latitude', '$longitude',
-                                 '$address', '$fingerprint', '$all_info', '$imprint')";
+                                 '$address', '$fingerprint', '$all_info', '$imprint', 'ON')";
   
 
 

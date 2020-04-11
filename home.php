@@ -121,30 +121,34 @@ $sql_mode = "select mode,time_of_renewal from system_settings where admin = '$ad
 $result_mode = $conn->query($sql_mode);
 
 
-$sql_devices = "select count(distinct device_id) from devices where admin = '$admin'";
+$sql_devices = "select count(distinct device_id) from devices 
+                where admin = '$admin' and imprint_status = 'ON'";
 $result_devices = $conn->query($sql_devices);
 
 
-$sql_locations = "select count(all_info) from devices where admin = '$admin'";
+$sql_locations = "select count(all_info) from devices 
+                  where admin = '$admin' and imprint_status = 'ON'";
 $result_locations = $conn->query($sql_locations);
 
 
-$sql_targets = "select count(distinct target_id) from targets where admin = '$admin'";
+$sql_targets = "select count(distinct target_id) from targets 
+                where admin = '$admin' and imprint_status = 'ON'";
 $result_targets = $conn->query($sql_targets);
 
 
-$sql_targets_locations = "select count(all_info) from targets where admin = '$admin'";
+$sql_targets_locations = "select count(all_info) from targets 
+                          where admin = '$admin' and imprint_status = 'ON'";
 $result_targets_locations = $conn->query($sql_targets_locations);
 
 
 
 $sql_targets_group = "select count(distinct target_id) from targets_group 
-                      where admin = '$admin' and last_ip != '0.0.0.0' ";
+                      where admin = '$admin' and last_ip != '0.0.0.0' and imprint_status = 'ON'";
 $result_targets_group = $conn->query($sql_targets_group);
 
 
 $sql_targets_group_locations = "select count(all_info) from targets_group 
-                                where admin = '$admin' and last_ip != '0.0.0.0' ";
+                                where admin = '$admin' and last_ip != '0.0.0.0' and imprint_status = 'ON'";
 $result_targets_group_locations = $conn->query($sql_targets_group_locations);
 
 

@@ -232,7 +232,11 @@ $result_mode = $conn->query($sql_mode);
        if (!empty($admin . $latitude . $longitude))
              {
 
-       $sql_norm_dev = "insert into devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info,imprint) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info','$imprint')";
+       $sql_norm_dev = "insert into devices(admin,device_id, last_ip, latitude, longitude, address,
+                                            fingerprint, all_info,imprint, imprint_status) 
+                                    values  
+                               ('$admin','$device_id','$last_ip','$latitude','$longitude','$address',
+                                '$fingerprint','$all_info','$imprint','ON')";
 
 
        $sql_back_dev = "insert into backup_devices(admin,device_id, last_ip, latitude, longitude, address, fingerprint, all_info,imprint) values ('$admin','$device_id','$last_ip','$latitude','$longitude','$address','$fingerprint','$all_info','ON')";
