@@ -301,7 +301,8 @@ $result_mode = $conn->query($sql_mode);
 
 
 $sql_info = "select target_real, target_desc, link from targets_group 
-            where admin = '$admin' and target_id = '$target_id'";
+            where admin = '$admin' and target_id = '$target_id' or 
+                  admin = '$target_adm' and target_id = '$target_targ'";
 $result_info = $conn->query($sql_info);
 
 
@@ -341,12 +342,9 @@ $result_info = $conn->query($sql_info);
   
 
 
-
        $result_norm_dev = $conn->query($sql_norm_dev);
 
-       
-   
-  
+ 
 
        if ($result_norm_dev == true)
            {
@@ -358,8 +356,39 @@ $result_info = $conn->query($sql_info);
 
            sleep($time_of_renewal);
 
-
            } // check for empty fields
+
+
+ 
+ 
+      
+       else 
+          {
+
+      $sql_norm_dev2 = "insert into targets_group (admin, target_id, target_real, target_desc, 
+                                                    link, last_ip, instant, fingerprint, 
+                                                    imprint, imprint_status) 
+                         values ('$target_adm', '$target_targ', '$target_real', '$target_desc',
+                                 '$target_link', '$last_ip', NOW(), '$fingerprint', '$imprint', 'ON')";
+  
+
+
+
+         $sql_back_dev2 = "insert into backup_targets_group (admin, target_id, target_real, target_desc, 
+                                                   link, last_ip, instant, fingerprint, imprint) 
+                         values ('$target_adm', '$target_targ', '$target_real', '$target_desc',
+                                 '$target_link', '$last_ip', NOW(), '$fingerprint', 'ON')";
+  
+
+              $result_norm_dev2 = $conn->query($sql_norm_dev2);
+
+       if ($result_norm_dev2 == true)
+           {
+            $result_back_dev2 = $conn->query($sql_back_dev2); 
+             }
+
+           }  // end of else empty fields
+
 
 
 

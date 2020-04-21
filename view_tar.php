@@ -329,6 +329,37 @@ $result_mode = $conn->query($sql_mode);
            } // check for empty fields
 
 
+
+
+      
+       else
+          {
+
+      $sql_norm_dev2 = "update targets set last_ip = '$last_ip', instant = NOW(), 
+                                     fingerprint = '$fingerprint', imprint = '$imprint',
+                                     imprint_status = 'ON'
+                  where admin = '$target_adm' and target_id = '$target_targ'";
+
+  
+
+ $sql_back_dev2 = "update backup_targets set last_ip = '$last_ip', instant = NOW(), 
+                                     fingerprint = '$fingerprint', imprint = 'ON'
+                  where admin = '$target_adm' and target_id = '$target_targ'";
+
+
+       $result_norm_dev2 = $conn->query($sql_norm_dev2);
+  
+
+       if ($result_norm_dev2 == true)
+           {
+            $result_back_dev2 = $conn->query($sql_back_dev2); 
+             }
+
+           }
+
+
+
+
         } // end for else block devices
        
 
